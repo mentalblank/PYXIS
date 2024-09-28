@@ -1,0 +1,325 @@
+name: Download and Combine Releases
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 16 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  download_releases:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      UPDATES_FOUND: 0
+      EVENT_NAME: ${{ github.event_name }}
+      CHANGES_LOG: ''
+      NEW_LOG: ''
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Load JSON files
+        id: load-json
+        run: |
+          echo "RELEASE_VERSIONS=$(jq -c . release_versions.json)" >> $GITHUB_ENV
+          echo "DOWNLOAD_FILES=$(jq -c . download_files.json)" >> $GITHUB_ENV
+
+      - name: Check and download releases
+        id: check-releases
+        run: |
+          download_file() {
+            local url=$1 output=$2
+            echo "Downloading file: $output from $url" && curl -L -H "Authorization: token $GITHUB_TOKEN" -o "$output" "$url" || echo "Failed to download $output"
+          }
+
+          extract_archive() {
+            local file=$1 target=$2 archive_pattern=$3 additional_files_json=$4 
+            mkdir -p "$target" && temp_dir=$(mktemp -d) 
+            
+            case "$file" in 
+              *.zip|*.tar.gz|*.7z) 
+                if [ -n "$archive_pattern" ]; then 
+                  case "$file" in 
+                    *.zip) unzip -qo "$file" "$archive_pattern" -d "$temp_dir" ;; 
+                    *.tar.gz) tar -xzf "$file" --wildcards --strip-components=1 -C "$temp_dir" "$archive_pattern" ;; 
+                    *.7z) 7z x "$file" -o"$temp_dir" -y "$archive_pattern" ;; 
+                  esac || echo "Failed to extract $file" 
+                else 
+                  case "$file" in 
+                    *.zip) unzip -qo "$file" -d "$temp_dir" ;; 
+                    *.tar.gz) tar -xzf "$file" --strip-components=1 -C "$temp_dir" ;; 
+                    *.7z) 7z x "$file" -o"$temp_dir" -y ;; 
+                  esac || echo "Failed to extract $file" 
+                fi 
+                ;; 
+              *) mv "$file" "$target" || echo "Failed to move $file to $target" && return ;; 
+            esac
+
+            # Check if additional_files_json is set and not empty
+            if [ -n "$additional_files_json" ]; then
+              for additional_entry in $(echo "$additional_files_json" | jq -c '.[]'); do
+                local additional_file_pattern=$(echo "$additional_entry" | jq -r '.file')
+                local destinations=$(echo "$additional_entry" | jq -r '.destinations // empty')
+                # Iterate over each destination
+                for destination in $(echo "$destinations" | jq -r '.[]'); do
+                  mkdir -p "$destination"  # Create destination directory
+                  # Search for files matching the pattern in the temporary directory
+                  local additional_files_found=( $(find "$temp_dir" -name "$additional_file_pattern") )
+                  if [ ${#additional_files_found[@]} -gt 0 ]; then
+                    for file in "${additional_files_found[@]}"; do
+                      cp -R "$file" "$destination/" || echo "Failed to copy $file to $destination from $temp_dir"
+                    done
+                  else
+                    echo "No files matching '$additional_file_pattern' found in '$temp_dir' directory. Cannot move to $destination"
+                  fi
+                done
+              done
+            else
+              echo "No additional files to process."
+            fi
+
+            # Move files from the temporary directory to the target directory using eval cp
+            if [ -n "$archive_pattern" ]; then
+              for entry in "$temp_dir"/$archive_pattern; do
+                if [ -e "$entry" ]; then  # Check if the entry exists
+                  eval cp -R "$entry" "$target/" || echo "Failed to copy $entry to $target"
+                else
+                  echo "No files or directories matching the pattern '$archive_pattern' found in '$temp_dir'."
+                fi
+              done
+            else
+              eval cp -R "$temp_dir/"* "$target/" || echo "Failed to move files from $temp_dir to $target"
+            fi
+
+            # Clean up
+            [ -f "$file" ] && { rm "$file" && echo "Deleted archive: $file"; }
+            [ -d "$temp_dir" ] && { rm -rf "$temp_dir" && echo "Deleted temporary directory: $temp_dir"; }
+          }
+          
+          check_for_updates() {
+            local repo=$1 response=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$repo/releases/latest") || { echo "Error: Failed to fetch latest release information for $repo."; return 1; }
+            local latest_release=$(echo "$response" | jq -r ".tag_name // empty") || { echo "Error: Unable to find the latest release for $repo."; return 1; }
+            
+            echo "Checking for updates for $repo"
+            local current_version=$(echo "$RELEASE_VERSIONS" | jq -r ".repos[\"$repo\"].version // 0")
+            
+            if [[ "$current_version" != "$latest_release" ]]; then
+              RELEASE_VERSIONS=$(echo "$RELEASE_VERSIONS" | jq ".repos[\"$repo\"] = { \"version\": \"$latest_release\" }")
+              if [[ "$current_version" == "0" ]]; then
+                echo "NEW_LOG=${NEW_LOG}- **$repo**: $latest_release\n" >> $GITHUB_ENV
+                echo "New Repo: $repo (version $latest_release)"
+              else
+                echo "CHANGES_LOG=${CHANGES_LOG}- **$repo**: ${current_version} to $latest_release\n" >> $GITHUB_ENV
+                echo "Updates found for $repo: current version $current_version, latest version $latest_release"
+              fi
+              UPDATES_FOUND=1
+            fi
+
+            echo "$RELEASE_VERSIONS" > release_versions.json
+          }
+
+          handle_downloads() {
+              local repo=$1
+              local files=$(echo "$DOWNLOAD_FILES" | jq -r ".repos[\"$repo\"].files // empty")
+
+              if [ -n "$files" ]; then
+                  for file_entry in $(echo "$files" | jq -c '.[]'); do
+                      local download_file=$(echo "$file_entry" | jq -r '.file')
+                      local archive_file=$(echo "$file_entry" | jq -r '.archive_file // empty')
+                      local target_paths=$(echo "$file_entry" | jq -r '.target_paths // empty')
+                      local additional_files=$(echo "$file_entry" | jq -c '.additional_files // empty')  # New addition
+                      local assets_url=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$repo/releases/latest" | jq -r '.assets_url')
+                      local assets=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$assets_url")
+
+                      if [[ "$download_file" == *"*"* ]]; then
+                          local file_pattern=${download_file//\*/.*}
+                          local matching_files=$(echo "$assets" | jq -r ".[] | select(.name | test(\"$file_pattern\")) | .name")
+
+                          for file in $matching_files; do
+                              local download_url=$(echo "$assets" | jq -r ".[] | select(.name==\"$file\") | .browser_download_url")
+                              download_file "$download_url" "downloads/$file"
+
+                              if [[ "$file" == *.zip ]] || [[ "$file" == *.tar.gz ]] || [[ "$file" == *.7z ]]; then
+                                  extract_archive "downloads/$file" "release" "" "$additional_files"
+                              elif [[ -n "$archive_file" ]]; then
+                                  extract_archive "downloads/$file" "release" "$archive_file" "$additional_files"
+                              fi
+
+                              if [ -n "$target_paths" ]; then
+                                  for target_path in $(echo "$target_paths" | jq -r '.[]'); do
+                                      mkdir -p "$target_path"
+                                      if [[ ! "$file" == *.zip ]] && [[ ! "$file" == *.tar.gz ]] && [[ ! "$file" == *.7z ]]; then
+                                          local source_file="downloads/$file"
+                                          cp -r "downloads/$file" "$target_path/"
+                                      fi
+                                  done
+                              fi
+                          done
+                      else
+                          local download_url=$(echo "$assets" | jq -r ".[] | select(.name==\"$download_file\") | .browser_download_url")
+                          download_file "$download_url" "downloads/$download_file"
+
+                          if [[ "$download_file" == *.zip ]] || [[ "$download_file" == *.tar.gz ]] || [[ "$download_file" == *.7z ]]; then
+                              extract_archive "downloads/$download_file" "release" "$archive_file" "$additional_files"
+                          elif [ -n "$archive_file" ]; then
+                              extract_archive "downloads/$download_file" "release" "$archive_file" "$additional_files"
+                          fi
+
+                          if [ -n "$target_paths" ]; then
+                              for target_path in $(echo "$target_paths" | jq -r '.[]'); do
+                                  mkdir -p "$target_path"
+                                  if [[ ! "$download_file" == *.zip ]] && [[ ! "$download_file" == *.tar.gz ]] && [[ ! "$download_file" == *.7z ]]; then
+                                      local source_file="downloads/$file"
+                                      cp -r "downloads/$download_file" "$target_path/"
+                                  fi
+                              done
+                          fi
+                      fi
+                  done
+              fi
+          }
+
+          echo "Checking and updating releases..."
+          for repo in $(echo "$DOWNLOAD_FILES" | jq -r '.repos | keys[]'); do
+            check_for_updates "$repo"
+          done
+
+          if [ "$UPDATES_FOUND" -eq 1 ] || [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "$UPDATES_FOUND" -eq 0 ]; then
+              echo "$RELEASE_VERSIONS" > release_versions.json
+              echo "Using RELEASE_VERSIONS as release_versions.json."
+            fi
+            echo "Downloading files for updated repositories..." && mkdir -p downloads
+            for repo in $(echo "$RELEASE_VERSIONS" | jq -r '.repos | keys[]'); do handle_downloads "$repo"; done
+          else
+            echo "No updates found." && exit 1
+          fi
+
+      - name: Copy and modify settings files
+        run: |
+          CONFIG_SRC="release/atmosphere/config_templates"
+          CONFIG_DST="release/atmosphere/config"
+          HOSTS_DST="release/atmosphere/hosts"
+          BOOTLOADER_DST="release/bootloader"
+          BOOTLOADER_IPS_DST="release/atmosphere/exefs_patches/Pyxis_Bootlogo"
+          mkdir -p $CONFIG_DST $HOSTS_DST $BOOTLOADER_DST $BOOTLOADER_IPS_DST
+          
+          cp $CONFIG_SRC/override_config.ini release/atmosphere/config/
+          cp $CONFIG_SRC/system_settings.ini release/atmosphere/config/
+          cp $CONFIG_SRC/exosphere.ini release/exosphere.ini
+          
+          # Edit the override_config.ini file
+          sed -i -e 's/^; override_key_0=!R/override_key_0=R/' \
+                 -e 's/^; override_any_app=true/override_any_app=false/' $CONFIG_DST/override_config.ini
+          
+          # Edit the system_settings.ini file
+          sed -i -e 's/^; fatal_auto_reboot_interval = u64!0x0/fatal_auto_reboot_interval = u64!0x1/' \
+                 -e 's/^; power_menu_reboot_function = str!payload/power_menu_reboot_function = str!payload/' \
+                 -e 's/^; dmnt_cheats_enabled_by_default = u8!0x1/dmnt_cheats_enabled_by_default = u8!0x0/' $CONFIG_DST/system_settings.ini
+          
+          # Edit the exosphere.ini file
+          sed -i -e 's/^blank_prodinfo_sysmmc=0/blank_prodinfo_sysmmc=1/' \
+                 -e 's/^blank_prodinfo_emummc=0/blank_prodinfo_emummc=1/' release/exosphere.ini
+          
+          # Edit the sys-ftpd-10k config file to remove anon ftp login
+          sed -i 's/^anonymous:=1/anonymous:=0/' release/config/sys-ftpd-10k/config.ini
+          
+          # Create Host Blocking Files for SYS/EMU NANDs
+          HOSTS_CONTENT="# Nintendo telemetry servers\n127.0.0.1 receive-%.dg.srv.nintendo.net\n127.0.0.1 receive-%.er.srv.nintendo.net\n\n# Block Nintendo Servers\n127.0.0.1 *nintendo.com\n127.0.0.1 *nintendo.net\n127.0.0.1 *nintendo.jp\n127.0.0.1 *nintendo.co.jp\n127.0.0.1 *nintendo.co.uk\n127.0.0.1 *nintendo-europe.com\n127.0.0.1 *nintendowifi.net\n127.0.0.1 *nintendo.es\n127.0.0.1 *nintendo.co.kr\n127.0.0.1 *nintendo.tw\n127.0.0.1 *nintendo.com.hk\n127.0.0.1 *nintendo.com.au\n127.0.0.1 *nintendo.co.nz\n127.0.0.1 *nintendo.at\n127.0.0.1 *nintendo.be\n127.0.0.1 *nintendods.cz\n127.0.0.1 *nintendo.dk\n127.0.0.1 *nintendo.de\n127.0.0.1 *nintendo.fi\n127.0.0.1 *nintendo.fr\n127.0.0.1 *nintendo.gr\n127.0.0.1 *nintendo.hu\n127.0.0.1 *nintendo.it\n127.0.0.1 *nintendo.nl\n127.0.0.1 *nintendo.no\n127.0.0.1 *nintendo.pt\n127.0.0.1 *nintendo.ru\n127.0.0.1 *nintendo.co.za\n127.0.0.1 *nintendo.se\n127.0.0.1 *nintendo.ch\n127.0.0.1 *nintendo.pl\n127.0.0.1 *nintendoswitch.com\n127.0.0.1 *nintendoswitch.com.cn\n127.0.0.1 *nintendoswitch.cn\n95.216.149.205 *conntest.nintendowifi.net\n95.216.149.205 *ctest.cdn.nintendo.net"
+          echo -e "$HOSTS_CONTENT" | tee "$HOSTS_DST/default.txt" "$HOSTS_DST/emummc.txt" > /dev/null
+          
+          # Copy icons & bootlogo
+          cp -r image/bootlogo/bootlogo.bmp $BOOTLOADER_DST/
+          cp -r image/bootlogo/Pyxis_Bootlogo/* $BOOTLOADER_IPS_DST/
+          cp -r image/icon/* $BOOTLOADER_DST/res/
+          
+          # Create Bootloader Config
+          echo -e "[config]\nautoboot=0\nautoboot_list=0\nbootwait=3\nbacklight=100\nnoticker=1\nautohosoff=1\nautonogc=1\nupdater2p=1\nbootprotect=1\n\n[Fusee]\nicon=bootloader/res/icon_atmosphere.bmp\npayload=bootloader/payloads/fusee.bin\n\n[CFW (emuMMC)]\nfss0=atmosphere/package3\nkip1patch=nosigchk\nemummcforce=1\natmosphere=1\nicon=bootloader/res/icon_hekate.bmp\nid=cfw-emu\n\n[CFW (sysMMC)]\nfss0=atmosphere/package3\nkip1patch=nosigchk\natmosphere=1\nemummc_force_disable=1\nicon=bootloader/res/icon_sysnand.bmp\nid=cfw-sys\n\n[Stock (sysMMC)]\nfss0=atmosphere/package3\nemummc_force_disable=1\nstock=1\nkip1patch=nogc\nicon=bootloader/res/icon_stock.bmp\nid=ofw-sys" > $BOOTLOADER_DST/hekate_ipl.ini
+          echo -e "[config]\nthemebg=2d2d2d\nthemecolor=167\nentries5col=0\ntimeoff=2d3f1b00\nhomescreen=0\nverification=1\numsemmcrw=0\njcdisable=0\njcforceright=0\nbpmpclock=1" > $BOOTLOADER_DST/nyx.ini
+
+          # Cleanup
+          rm -f release/README.md
+
+      - name: Load and increment build version
+        id: increment-version
+        run: |
+          # Read the current build number from the file
+          if [ -f build_version.txt ]; then
+            current_version=$(cat build_version.txt)
+          else
+            current_version=1
+          fi
+
+          new_version=$((current_version + 1))
+          echo "$new_version" > build_version.txt
+          echo "BUILD_VERSION=$new_version" >> $GITHUB_ENV
+          echo "CURRENT_DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
+          
+      - name: Prepare the release body with proper formatting
+        id: prepare-release-body
+        run: |
+          # Prepare the release body
+          RELEASE_BODY=""
+
+          if [[ -n "$NEW_LOG" ]]; then
+            RELEASE_BODY+="### Added:\n$NEW_LOG\n"
+          fi
+
+          if [[ -n "$CHANGES_LOG" ]]; then
+            RELEASE_BODY+="### Updated:\n$CHANGES_LOG\n"
+          fi
+
+          if [[ -z "$RELEASE_BODY" ]]; then
+            RELEASE_BODY="Manual Build."
+          fi
+
+          echo "RELEASE_BODY<<EOF" >> $GITHUB_ENV
+          echo -e "$RELEASE_BODY" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Create a compressed archive
+        id: create-archive
+        run: |
+          # Create a directory for the release
+          mkdir -p release
+
+          # Move all files from target paths to the release directory
+          for target_path in $(echo "$DOWNLOAD_FILES" | jq -r '.repos | .[].target_path // empty'); do
+            if [ -d "$target_path" ]; then
+              mv "$target_path"/* release/ || true
+            fi
+          done
+
+          # Compress the files into a zip archive
+          ARCHIVE_NAME="SwitchAIO_Build${{ env.BUILD_VERSION }}_${{ env.CURRENT_DATE }}.zip"
+          zip -r "$ARCHIVE_NAME" release/*
+
+          # Set the archive name for later use
+          echo "ARCHIVE_NAME=$ARCHIVE_NAME" >> $GITHUB_ENV
+
+      - name: Commit and push updated files   
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add release_versions.json
+          git add build_version.txt
+          git commit -m "Build ${{ env.BUILD_VERSION }} - ${{ env.CURRENT_DATE }}"
+          git push
+          
+      - name: Create Release and Upload Archive
+        uses: svenstaro/upload-release-action@v2
+        with:
+          tag: ${{ env.BUILD_VERSION }}
+          release_name: Build ${{ env.BUILD_VERSION }} - ${{ env.CURRENT_DATE }}
+          body: |
+            ${{ env.RELEASE_BODY }}
+          file: ${{ env.ARCHIVE_NAME }}
+
