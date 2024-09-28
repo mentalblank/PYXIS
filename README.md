@@ -4,27 +4,42 @@
 
   # PYXIS All-in-One (AIO) Package for Nintendo Switch
 
-  An all-in-one custom firmware package for the Nintendo Switch, bringing together various essential tools and applications.
-
-  **Note**: **Sigpatch** and **prod.key** files are **NOT** included.
+  An all-in-one custom firmware package for the Nintendo Switch, bringing together various essential tools and applications for a complete custom firmware experience. Sigpatch and prod.key files are **NOT** included.
 
 </div>
 
 ## Features
 
-- **Comprehensive Toolset**: Bundles essential applications for a complete Switch experience.
-- **User-Friendly**: Designed for easy drag-and-drop functionality.
-- **Customizable**: Modify the package to suit your needs.
+- **Comprehensive Toolset:** Bundles essential applications for a complete Switch experience.
+- **User-Friendly:** Designed for easy drag-and-drop functionality.
+- **Customizable:** Modify the package to suit your needs.
+- **Background FTP Server:** Enable file transfers.
+- **Install NSP & XCI Files:** Transfer and install games from your hard drive, PC, or smartphone, using either Wi-Fi or wired connections.
+- **Update OFW & CFW:** Utilize homebrew applications to keep your firmware updated.
+- **Save Game Management:** Organize and manage your game saves.
+- **Emulate Amiibo:** Access Amiibo functionality without the actual figures.
+- **Overclocking and Underclocking:** Adjust performance settings for optimal gameplay.
+- **Game Cheating:** Use cheats in single-player games.
+- **Dynamic Themes:** Apply custom themes and visual modifications to the Switch UI.
+- **In-Game Cheat Activation:** Activate cheats on-the-fly without needing to exit the game.
+- **Mod Management:** Organize and manage game mods for easier installation and uninstallation.
+- **Background FTP Server:** Enable file transfers.
+- **Discover New Homebrew:** Explore the App Store for the latest homebrew applications.
+- **Support for Third-Party Controllers:** Use various third-party controllers for enhanced gameplay.
+- **Online LAN Play:** Set up remote local multiplayer over the Internet.
+- **Custom User Icons:** Change your user icons with custom images.
+- **Overlays:** Access and control some of these features using an easy shortcut (press L1 + D-Pad Down + Right Stick).
 
-## Installation
+## Installation Guide
 
-1. [Click here for the latest release](https://github.com/MentalBlank/SwitchAIO-AutoBuild/releases/latest).
-2. Extract the contents of the compressed folder to the root directory of your Switch SD card.
+1. [Download the latest release here](https://github.com/MentalBlank/SwitchAIO-AutoBuild/releases/latest).
+2. Unzip the contents of the compressed folder to the root directory of your Switch SD card.
+3. In RCM mode, send the Hekate payload to your Switch and start the custom firmware (CFW).
 
 ## Notes
 
-- Requires a modded Switch with CFW. Refer to the [FAQ & CFW Guide](https://switch.hacks.guide/) for details.
-- Amiibo .Bin and .NFC files can be downloaded from the [Amiibo Database](https://github.com/AmiiboDB/Amiibo) repository and loaded through the Emuiibo homebrew.
+- A modded Nintendo Switch is required. For more information, consult this [FAQ & CFW Guide](https://switch.hacks.guide/).
+- You can download Amiibo .bin and .nfc files from the [Amiibo Database](https://github.com/AmiiboDB/Amiibo) repository and load them using the Emuiibo homebrew application.
 
 ## Credits
 
@@ -49,6 +64,7 @@ This project utilizes and credits the following repositories:
 | [masagrator/Status-Monitor-Overlay](https://github.com/masagrator/Status-Monitor-Overlay) | Status monitor overlay |
 | [nadrino/SimpleModManager](https://github.com/nadrino/SimpleModManager) | Simple game mod manager |
 | [ndeadly/MissionControl](https://github.com/ndeadly/MissionControl) | Alternative Controller support |
+| [ppkantorski/Ultrahand-Overlay](https://github.com/ppkantorski/Ultrahand-Overlay) | Overlay menu for the Switch |
 | [proferabg/EdiZon-Overlay](https://github.com/proferabg/EdiZon-Overlay) | Overlay for EdiZon cheat manager |
 | [retronx-team/sys-clk](https://github.com/retronx-team/sys-clk) | Overclocking/underclocking system module |
 | [Slluxx/IconGrabber](https://github.com/Slluxx/IconGrabber) | Game icon grabber |
@@ -67,7 +83,7 @@ This project utilizes and credits the following repositories:
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU General Public License v3. See the [LICENSE](LICENSE) file for details.
 
 ## Contributing
 

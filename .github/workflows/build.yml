@@ -36,8 +36,15 @@ jobs:
         id: check-releases
         run: |
           download_file() {
-            local url=$1 output=$2
-            echo "Downloading file: $output from $url" && curl -L -H "Authorization: token $GITHUB_TOKEN" -o "$output" "$url" || echo "Failed to download $output"
+            local url=$1 output=$2 mandatory=$3
+            echo "Downloading file: $output from $url" && curl -L -H "Authorization: token $GITHUB_TOKEN" -o "$output" "$url"
+            if [ $? -ne 0 ]; then
+              echo "Failed to download $output from $url"
+              if [ "$mandatory" = "true" ]; then
+                echo "Mandatory download failure: $output"
+                exit 1
+              fi
+            fi
           }
 
           extract_archive() {
@@ -133,6 +140,7 @@ jobs:
               if [ -n "$files" ]; then
                   for file_entry in $(echo "$files" | jq -c '.[]'); do
                       local download_file=$(echo "$file_entry" | jq -r '.file')
+                      local mandatory_file=$(echo "$file_entry" | jq -r '.mandatory // false')
                       local archive_file=$(echo "$file_entry" | jq -r '.archive_file // empty')
                       local target_paths=$(echo "$file_entry" | jq -r '.target_paths // empty')
                       local additional_files=$(echo "$file_entry" | jq -c '.additional_files // empty')  # New addition
@@ -145,7 +153,7 @@ jobs:
 
                           for file in $matching_files; do
                               local download_url=$(echo "$assets" | jq -r ".[] | select(.name==\"$file\") | .browser_download_url")
-                              download_file "$download_url" "downloads/$file"
+                              download_file "$download_url" "downloads/$file" "$mandatory_file"
 
                               if [[ "$file" == *.zip ]] || [[ "$file" == *.tar.gz ]] || [[ "$file" == *.7z ]]; then
                                   extract_archive "downloads/$file" "release" "" "$additional_files"
@@ -165,7 +173,7 @@ jobs:
                           done
                       else
                           local download_url=$(echo "$assets" | jq -r ".[] | select(.name==\"$download_file\") | .browser_download_url")
-                          download_file "$download_url" "downloads/$download_file"
+                          download_file "$download_url" "downloads/$download_file" "$mandatory_file"
 
                           if [[ "$download_file" == *.zip ]] || [[ "$download_file" == *.tar.gz ]] || [[ "$download_file" == *.7z ]]; then
                               extract_archive "downloads/$download_file" "release" "$archive_file" "$additional_files"
@@ -200,10 +208,11 @@ jobs:
             echo "Downloading files for updated repositories..." && mkdir -p downloads
             for repo in $(echo "$RELEASE_VERSIONS" | jq -r '.repos | keys[]'); do handle_downloads "$repo"; done
           else
-            echo "No updates found." && exit 1
+            echo "No updates found."
           fi
 
       - name: Copy and modify settings files
+        if: ${{ env.UPDATES_FOUND == '1' || github.event_name == 'workflow_dispatch' }}
         run: |
           CONFIG_SRC="release/atmosphere/config_templates"
           CONFIG_DST="release/atmosphere/config"
@@ -249,13 +258,14 @@ jobs:
           rm -f release/README.md
 
       - name: Load and increment build version
+        if: ${{ env.UPDATES_FOUND == '1' || github.event_name == 'workflow_dispatch' }}
         id: increment-version
         run: |
           # Read the current build number from the file
           if [ -f build_version.txt ]; then
             current_version=$(cat build_version.txt)
           else
-            current_version=1
+            current_version=0
           fi
 
           new_version=$((current_version + 1))
@@ -264,6 +274,7 @@ jobs:
           echo "CURRENT_DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
           
       - name: Prepare the release body with proper formatting
+        if: ${{ env.UPDATES_FOUND == '1' || github.event_name == 'workflow_dispatch' }}
         id: prepare-release-body
         run: |
           # Prepare the release body
@@ -286,6 +297,7 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
 
       - name: Create a compressed archive
+        if: ${{ env.UPDATES_FOUND == '1' || github.event_name == 'workflow_dispatch' }}
         id: create-archive
         run: |
           # Create a directory for the release
@@ -306,6 +318,7 @@ jobs:
           echo "ARCHIVE_NAME=$ARCHIVE_NAME" >> $GITHUB_ENV
 
       - name: Commit and push updated files   
+        if: ${{ env.UPDATES_FOUND == '1' || github.event_name == 'workflow_dispatch' }}
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
@@ -315,6 +328,7 @@ jobs:
           git push
           
       - name: Create Release and Upload Archive
+        if: ${{ env.UPDATES_FOUND == '1' || github.event_name == 'workflow_dispatch' }}
         uses: svenstaro/upload-release-action@v2
         with:
           tag: ${{ env.BUILD_VERSION }}

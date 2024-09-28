@@ -4,6 +4,7 @@
       "files": [
         {
           "file": "atmosphere-*.zip",
+          "mandatory": true,
           "target_paths": ["release"]
         },
         {
@@ -49,6 +50,14 @@
         {
           "file": "ovlmenu.zip",
           "target_paths": ["release"]
+        }
+      ]
+    },
+    "ppkantorski/Ultrahand-Overlay": {
+      "files": [
+        {
+          "file": "ovlmenu.ovl",
+          "target_paths": ["release/switch/.overlays"]
         }
       ]
     },
