@@ -121,10 +121,12 @@ jobs:
             if [[ "$current_version" != "$latest_release" ]]; then
               RELEASE_VERSIONS=$(echo "$RELEASE_VERSIONS" | jq ".repos[\"$repo\"] = { \"version\": \"$latest_release\" }")
               if [[ "$current_version" == "0" ]]; then
-                echo "NEW_LOG=${NEW_LOG}- **$repo**: $latest_release\n" >> $GITHUB_ENV
+                NEW_LOG="${NEW_LOG}- **$repo**: $latest_release\n"
+                echo "NEW_LOG=${NEW_LOG}" >> $GITHUB_ENV
                 echo "New Repo: $repo (version $latest_release)"
               else
-                echo "CHANGES_LOG=${CHANGES_LOG}- **$repo**: ${current_version} to $latest_release\n" >> $GITHUB_ENV
+                CHANGES_LOG="${CHANGES_LOG}- **$repo**: ${current_version} to $latest_release\n"
+                echo "CHANGES_LOG=$CHANGES_LOG" >> $GITHUB_ENV
                 echo "Updates found for $repo: current version $current_version, latest version $latest_release"
               fi
               UPDATES_FOUND=1
@@ -232,6 +234,7 @@ jobs:
           # Edit the system_settings.ini file
           sed -i -e 's/^; fatal_auto_reboot_interval = u64!0x0/fatal_auto_reboot_interval = u64!0x1/' \
                  -e 's/^; power_menu_reboot_function = str!payload/power_menu_reboot_function = str!payload/' \
+                 -e 's/^; add_defaults_to_dns_hosts = u8!0x1/add_defaults_to_dns_hosts = u8!0x1/' \
                  -e 's/^; dmnt_cheats_enabled_by_default = u8!0x1/dmnt_cheats_enabled_by_default = u8!0x0/' $CONFIG_DST/system_settings.ini
           
           # Edit the exosphere.ini file

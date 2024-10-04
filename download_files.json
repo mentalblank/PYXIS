@@ -69,6 +69,14 @@
         }
       ]
     },
+    "nedex/QuickNTP": {
+      "files": [
+        {
+          "file": "QuickNTP.ovl",
+          "target_paths": ["release/switch/.overlays"]
+        }
+      ]
+    },
     "WerWolv/ovl-sysmodules": {
       "files": [
         {
