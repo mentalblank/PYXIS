@@ -21,6 +21,22 @@
         }
       ]
     },
+    "ITotalJustice/untitled": {
+      "files": [
+        {
+          "file": "untitled.zip",
+          "target_paths": ["release"]
+        }
+      ]
+    },
+    "averne/Fizeau": {
+      "files": [
+        {
+          "file": "Fizeau-*.zip",
+          "target_paths": ["release"]
+        }
+      ]
+    },
     "BernardoGiordano/Checkpoint": {
       "files": [
         {
@@ -42,14 +58,6 @@
         {
           "file": "HekateToolbox.nro",
           "target_paths": ["release/switch/HekateToolbox"]
-        }
-      ]
-    },
-    "WerWolv/Tesla-Menu": {
-      "files": [
-        {
-          "file": "ovlmenu.zip",
-          "target_paths": ["release"]
         }
       ]
     },
@@ -93,11 +101,27 @@
         }
       ]
     },
+    "PoloNX/SimpleModDownloader": {
+      "files": [
+        {
+          "file": "SimpleModDownloader.nro",
+          "target_paths": ["release/switch/SimpleModDownloader"]
+        }
+      ]
+    },
     "nadrino/SimpleModManager": {
       "files": [
         {
           "file": "SimpleModManager.nro",
           "target_paths": ["release/switch/SimpleModManager"]
+        }
+      ]
+    },
+    "Slluxx/AmiiboGenerator": {
+      "files": [
+        {
+          "file": "AmiiboGenerator.nro",
+          "target_paths": ["release/switch/AmiiboGenerator"]
         }
       ]
     },

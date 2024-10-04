@@ -32,7 +32,7 @@
 
 ## Installation Guide
 
-1. [Download the latest release here](https://github.com/MentalBlank/SwitchAIO-AutoBuild/releases/latest).
+1. [Download the latest .zip release here](https://github.com/MentalBlank/PYXIS/releases/latest).
 2. Unzip the contents of the compressed folder to the root directory of your Switch SD card.
 3. In RCM mode, send the Hekate payload to your Switch and start the custom firmware (CFW).
 
@@ -48,6 +48,7 @@ This project utilizes and credits the following repositories:
 | Repository | Description |
 |------------|-------------|
 | [Atmosphere-NX/Atmosphere](https://github.com/Atmosphere-NX/Atmosphere) | Custom firmware |
+| [averne/Fizeau](https://github.com/averne/Fizeau) | Screen color adjuster |
 | [BernardoGiordano/Checkpoint](https://github.com/BernardoGiordano/Checkpoint) | Save game manager |
 | [cathery/sys-con](https://github.com/cathery/sys-con) | 3rd party controller usage |
 | [cathery/sys-ftpd](https://github.com/cathery/sys-ftpd) | FTP server system module |
@@ -59,14 +60,17 @@ This project utilizes and credits the following repositories:
 | [fortheusers/hb-appstore](https://github.com/fortheusers/hb-appstore) | Homebrew app store |
 | [HamletDuFromage/aio-switch-updater](https://github.com/HamletDuFromage/aio-switch-updater) | Updater for various things |
 | [ITotalJustice/Gamecard-Installer-NX](https://github.com/ITotalJustice/Gamecard-Installer-NX) | Gamecard installer |
+| [ITotalJustice/untitled](https://github.com/ITotalJustice/untitled) | Batch title uninstaller |
 | [J-D-K/JKSV](https://github.com/J-D-K/JKSV) | Save manager for Switch |
 | [joel16/NX-Shell](https://github.com/joel16/NX-Shell) | File manager |
 | [masagrator/Status-Monitor-Overlay](https://github.com/masagrator/Status-Monitor-Overlay) | Status monitor overlay |
 | [nadrino/SimpleModManager](https://github.com/nadrino/SimpleModManager) | Simple game mod manager |
 | [ndeadly/MissionControl](https://github.com/ndeadly/MissionControl) | Alternative Controller support |
+| [PoloNX/SimpleModDownloader](https://github.com/PoloNX/SimpleModDownloader) | Simple game mod downloader |
 | [ppkantorski/Ultrahand-Overlay](https://github.com/ppkantorski/Ultrahand-Overlay) | Overlay menu for the Switch |
 | [proferabg/EdiZon-Overlay](https://github.com/proferabg/EdiZon-Overlay) | Overlay for EdiZon cheat manager |
 | [retronx-team/sys-clk](https://github.com/retronx-team/sys-clk) | Overclocking/underclocking system module |
+| [Slluxx/AmiiboGenerator](https://github.com/Slluxx/AmiiboGenerator) | Generates Amiibo images for Emuiibo |
 | [Slluxx/IconGrabber](https://github.com/Slluxx/IconGrabber) | Game icon grabber |
 | [spacemeowx2/ldn_mitm](https://github.com/spacemeowx2/ldn_mitm) | Play local wireless supported games online |
 | [suchmememanyskill/themezer-nx](https://github.com/suchmememanyskill/themezer-nx) | Custom themes downloader |
@@ -76,7 +80,6 @@ This project utilizes and credits the following repositories:
 | [WerWolv/Hekate-Toolbox](https://github.com/WerWolv/Hekate-Toolbox) | Toolkit for hekate bootloader |
 | [WerWolv/nx-ovlloader](https://github.com/WerWolv/nx-ovlloader) | Host process for loading overlays |
 | [WerWolv/ovl-sysmodules](https://github.com/WerWolv/ovl-sysmodules) | A sysmodule selector for Tesla |
-| [WerWolv/Tesla-Menu](https://github.com/WerWolv/Tesla-Menu) | Overlay menu for the Switch |
 | [XorTroll/emuiibo](https://github.com/XorTroll/emuiibo) | Emulates amiibo |
 | [XorTroll/Goldleaf](https://github.com/XorTroll/Goldleaf) | Title installer and manager |
 | [zdm65477730/NX-Activity-Log](https://github.com/zdm65477730/NX-Activity-Log) | Improved Activity Log |
