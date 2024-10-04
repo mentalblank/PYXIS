@@ -95,6 +95,18 @@
     },
     "ppkantorski/Ultrahand-Overlay": {
       "version": "v1.7.8"
+    },
+    "ITotalJustice/untitled": {
+      "version": "v1.3.0"
+    },
+    "PoloNX/SimpleModDownloader": {
+      "version": "2.1.0"
+    },
+    "Slluxx/AmiiboGenerator": {
+      "version": "v2.1.1"
+    },
+    "averne/Fizeau": {
+      "version": "v2.5.5"
     }
   }
 }
