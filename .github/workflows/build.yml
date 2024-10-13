@@ -220,8 +220,8 @@ jobs:
           CONFIG_DST="release/atmosphere/config"
           HOSTS_DST="release/atmosphere/hosts"
           BOOTLOADER_DST="release/bootloader"
-          BOOTLOADER_IPS_DST="release/atmosphere/exefs_patches/Pyxis_Bootlogo"
-          mkdir -p $CONFIG_DST $HOSTS_DST $BOOTLOADER_DST $BOOTLOADER_IPS_DST
+          AIO_UPDATER_DST="release/config/aio-switch-updater"
+          mkdir -p $CONFIG_DST $HOSTS_DST $BOOTLOADER_DST $AIO_UPDATER_DST
           
           cp $CONFIG_SRC/override_config.ini release/atmosphere/config/
           cp $CONFIG_SRC/system_settings.ini release/atmosphere/config/
@@ -250,13 +250,17 @@ jobs:
           
           # Copy icons & bootlogo
           cp -r image/bootlogo/bootlogo.bmp $BOOTLOADER_DST/
-          cp -r image/bootlogo/Pyxis_Bootlogo/* $BOOTLOADER_IPS_DST/
           cp -r image/icon/* $BOOTLOADER_DST/res/
           
           # Create Bootloader Config
           echo -e "[config]\nautoboot=0\nautoboot_list=0\nbootwait=3\nbacklight=100\nnoticker=1\nautohosoff=1\nautonogc=1\nupdater2p=1\nbootprotect=1\n\n[Fusee]\nicon=bootloader/res/icon_atmosphere.bmp\npayload=bootloader/payloads/fusee.bin\n\n[CFW (emuMMC)]\nfss0=atmosphere/package3\nkip1patch=nosigchk\nemummcforce=1\natmosphere=1\nicon=bootloader/res/icon_hekate.bmp\nid=cfw-emu\n\n[CFW (sysMMC)]\nfss0=atmosphere/package3\nkip1patch=nosigchk\natmosphere=1\nemummc_force_disable=1\nicon=bootloader/res/icon_sysnand.bmp\nid=cfw-sys\n\n[Stock (sysMMC)]\nfss0=atmosphere/package3\nemummc_force_disable=1\nstock=1\nkip1patch=nogc\nicon=bootloader/res/icon_stock.bmp\nid=ofw-sys" > $BOOTLOADER_DST/hekate_ipl.ini
           echo -e "[config]\nthemebg=2d2d2d\nthemecolor=167\nentries5col=0\ntimeoff=2d3f1b00\nhomescreen=0\nverification=1\numsemmcrw=0\njcdisable=0\njcforceright=0\nbpmpclock=1" > $BOOTLOADER_DST/nyx.ini
-
+          
+          # Create aio-switch-updater configuration files
+          echo -e '{\n\t"ams": {\n\t\t"[PACK] PYXIS AIO": "https://github.com/MentalBlank/PYXIS/releases/latest/download/PYXIS_SwitchAIO.zip"\n\t}\n}' > $AIO_UPDATER_DST/custom_packs.json
+          echo -e '{\n\t"about": false,\n\t"atmosphere": true,\n\t"cfw": true,\n\t"firmwares": false,\n\t"cheats": false,\n\t"custom": false,\n\t"outdatedtitles": false,\n\t"jccolor": false,\n\t"pccolor": false,\n\t"downloadpayload": false,\n\t"rebootpayload": false,\n\t"netsettings": false,\n\t"browser": false,\n\t"move": false,\n\t"cleanup": false,\n\t"language": false\n}' > $AIO_UPDATER_DST/hide_tabs.json
+          echo -e '/atmosphere/config/\n/bootloader/hekate_ipl.ini\n/bootloader/nyx.ini\n/config/sys-clk/\n/config/status-monitor/\n/config/ultrahand/config.ini\n/config/ultrahand/theme.ini\n/config/ultrahand/overlays.ini\n/config/ultrahand/packages.ini\n/config/sys-ftpd/\n/config/sys-ftpd-10k/\n/config/Fizeau/\n/config/MissionControl/\n/config/sys-con/' > $AIO_UPDATER_DST/preserve.txt
+          
           # Cleanup
           rm -f release/README.md
 
@@ -270,7 +274,7 @@ jobs:
           else
             current_version=0
           fi
-
+          
           new_version=$((current_version + 1))
           echo "$new_version" > build_version.txt
           echo "BUILD_VERSION=$new_version" >> $GITHUB_ENV
@@ -282,41 +286,41 @@ jobs:
         run: |
           # Prepare the release body
           RELEASE_BODY=""
-
+          
           if [[ -n "$NEW_LOG" ]]; then
             RELEASE_BODY+="### Added:\n$NEW_LOG\n"
           fi
-
+          
           if [[ -n "$CHANGES_LOG" ]]; then
             RELEASE_BODY+="### Updated:\n$CHANGES_LOG\n"
           fi
-
+          
           if [[ -z "$RELEASE_BODY" ]]; then
             RELEASE_BODY="Manual Build."
           fi
-
+          
           echo "RELEASE_BODY<<EOF" >> $GITHUB_ENV
           echo -e "$RELEASE_BODY" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-
+          
       - name: Create a compressed archive
         if: ${{ env.UPDATES_FOUND == '1' || github.event_name == 'workflow_dispatch' }}
         id: create-archive
         run: |
           # Create a directory for the release
           mkdir -p release
-
+          
           # Move all files from target paths to the release directory
           for target_path in $(echo "$DOWNLOAD_FILES" | jq -r '.repos | .[].target_path // empty'); do
             if [ -d "$target_path" ]; then
               mv "$target_path"/* release/ || true
             fi
           done
-
+          
           # Compress the files into a zip archive
-          ARCHIVE_NAME="SwitchAIO_Build${{ env.BUILD_VERSION }}_${{ env.CURRENT_DATE }}.zip"
-          zip -r "$ARCHIVE_NAME" release/*
-
+          ARCHIVE_NAME="PYXIS_SwitchAIO.zip"
+          cd release && zip -r "../$ARCHIVE_NAME" ./*
+          
           # Set the archive name for later use
           echo "ARCHIVE_NAME=$ARCHIVE_NAME" >> $GITHUB_ENV
 

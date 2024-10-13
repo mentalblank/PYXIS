@@ -72,8 +72,8 @@
     "nedex/QuickNTP": {
       "files": [
         {
-          "file": "QuickNTP.ovl",
-          "target_paths": ["release/switch/.overlays"]
+          "file": "quickntp-*.zip",
+          "target_paths": ["release"]
         }
       ]
     },
@@ -254,8 +254,8 @@
     "zdm65477730/NX-Activity-Log": {
       "files": [
         {
-          "file": "NX-Activity-Log.zip",
-          "target_paths": ["release"]
+          "file": "NX-Activity-Log.nro",
+          "target_paths": ["release/switch/NX-Activity-Log"]
         }
       ]
     },
@@ -296,6 +296,14 @@
         {
           "file": "CommonProblemResolver.bin",
           "target_paths": ["release", "release/bootloader/payloads"]
+        }
+      ]
+    },
+    "MentalBlank/switch-sys-tweak": {
+      "files": [
+        {
+          "file": "systweak.zip",
+          "target_paths": ["release"]
         }
       ]
     },
