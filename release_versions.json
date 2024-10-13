@@ -4,7 +4,7 @@
       "version": "1.7.1"
     },
     "tomvita/Breeze-Beta": {
-      "version": "beta94b"
+      "version": "beta95a"
     },
     "BernardoGiordano/Checkpoint": {
       "version": "v3.8.0"
@@ -52,7 +52,7 @@
       "version": "2.0.0-rc"
     },
     "masagrator/Status-Monitor-Overlay": {
-      "version": "1.1.3"
+      "version": "1.1.4"
     },
     "fortheusers/hb-appstore": {
       "version": "v2.3.2"
@@ -61,7 +61,7 @@
       "version": "v1.0.7"
     },
     "CTCaer/hekate": {
-      "version": "v6.2.1"
+      "version": "v6.2.2"
     },
     "ndeadly/MissionControl": {
       "version": "v0.11.1"
@@ -106,7 +106,10 @@
       "version": "v2.1.1"
     },
     "averne/Fizeau": {
-      "version": "v2.5.5"
+      "version": "v2.6.0"
+    },
+    "nedex/QuickNTP": {
+      "version": "1.2.8"
     }
   }
 }
