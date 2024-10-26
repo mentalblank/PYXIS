@@ -302,7 +302,7 @@
     "MentalBlank/switch-sys-tweak": {
       "files": [
         {
-          "file": "systweak.zip",
+          "file": "sys-tweak.zip",
           "target_paths": ["release"]
         }
       ]
