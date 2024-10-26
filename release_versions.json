@@ -49,7 +49,7 @@
       "version": "2.0.0"
     },
     "retronx-team/sys-clk": {
-      "version": "2.0.0-rc"
+      "version": "2.0.1"
     },
     "masagrator/Status-Monitor-Overlay": {
       "version": "1.1.4"
@@ -64,10 +64,10 @@
       "version": "v6.2.2"
     },
     "ndeadly/MissionControl": {
-      "version": "v0.11.1"
+      "version": "v0.12.0"
     },
     "zdm65477730/NX-Activity-Log": {
-      "version": "1.5.0"
+      "version": "v1.5.0-hos19.0.0"
     },
     "cathery/sys-ftpd": {
       "version": "1.0.4"
@@ -91,10 +91,10 @@
       "version": "v0.4.2"
     },
     "proferabg/EdiZon-Overlay": {
-      "version": "v1.0.8"
+      "version": "v1.0.9"
     },
     "ppkantorski/Ultrahand-Overlay": {
-      "version": "v1.7.8"
+      "version": "v1.7.9"
     },
     "ITotalJustice/untitled": {
       "version": "v1.3.0"
@@ -109,7 +109,10 @@
       "version": "v2.6.0"
     },
     "nedex/QuickNTP": {
-      "version": "1.2.8"
+      "version": "1.2.8-1"
+    },
+    "MentalBlank/switch-sys-tweak": {
+      "version": "1"
     }
   }
 }
