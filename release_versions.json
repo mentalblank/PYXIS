@@ -4,7 +4,7 @@
       "version": "1.7.1"
     },
     "tomvita/Breeze-Beta": {
-      "version": "beta95a"
+      "version": "beta96"
     },
     "BernardoGiordano/Checkpoint": {
       "version": "v3.8.0"
@@ -52,7 +52,7 @@
       "version": "2.0.1"
     },
     "masagrator/Status-Monitor-Overlay": {
-      "version": "1.1.4"
+      "version": "1.1.6"
     },
     "fortheusers/hb-appstore": {
       "version": "v2.3.2"
@@ -67,19 +67,19 @@
       "version": "v0.12.0"
     },
     "zdm65477730/NX-Activity-Log": {
-      "version": "v1.5.0-hos19.0.0"
+      "version": "v1.5.2"
     },
     "cathery/sys-ftpd": {
-      "version": "1.0.4"
+      "version": "1.0.5"
     },
     "cathery/sys-con": {
-      "version": "v0.6.4"
+      "version": "v0.6.5"
     },
     "spacemeowx2/ldn_mitm": {
       "version": "v1.17.0"
     },
     "J-D-K/JKSV": {
-      "version": "08/06/2024"
+      "version": "11/05/2024"
     },
     "Team-Neptune/CommonProblemResolver": {
       "version": "v0.3.5"
@@ -88,13 +88,13 @@
       "version": "1.1.1"
     },
     "dslatt/nso-icon-tool": {
-      "version": "v0.4.2"
+      "version": "v0.4.4"
     },
     "proferabg/EdiZon-Overlay": {
       "version": "v1.0.9"
     },
     "ppkantorski/Ultrahand-Overlay": {
-      "version": "v1.7.9"
+      "version": "v1.8.2"
     },
     "ITotalJustice/untitled": {
       "version": "v1.3.0"
@@ -106,7 +106,7 @@
       "version": "v2.1.1"
     },
     "averne/Fizeau": {
-      "version": "v2.6.0"
+      "version": "v2.8.1"
     },
     "nedex/QuickNTP": {
       "version": "1.2.8-1"
