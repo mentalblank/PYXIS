@@ -1,10 +1,10 @@
 {
   "repos": {
     "Atmosphere-NX/Atmosphere": {
-      "version": "1.7.1"
+      "version": "1.8.0-prerelease"
     },
     "tomvita/Breeze-Beta": {
-      "version": "beta96"
+      "version": "beta98a"
     },
     "BernardoGiordano/Checkpoint": {
       "version": "v3.8.0"
@@ -52,7 +52,7 @@
       "version": "2.0.1"
     },
     "masagrator/Status-Monitor-Overlay": {
-      "version": "1.1.6"
+      "version": "1.1.7a"
     },
     "fortheusers/hb-appstore": {
       "version": "v2.3.2"
@@ -67,7 +67,7 @@
       "version": "v0.12.0"
     },
     "zdm65477730/NX-Activity-Log": {
-      "version": "v1.5.2"
+      "version": "v1.5.4"
     },
     "cathery/sys-ftpd": {
       "version": "1.0.5"
