@@ -67,7 +67,12 @@ jobs:
                   esac || echo "Failed to extract $file" 
                 fi 
                 ;; 
-              *) mv "$file" "$target" || echo "Failed to move $file to $target" && return ;; 
+              *) 
+                if mv "$file" "$target"; then
+                  echo "Moved $file → $target"
+                else
+                  echo "Failed to move $file to $target"
+                fi
             esac
 
             # Check if additional_files_json is set and not empty
@@ -344,3 +349,19 @@ jobs:
             ${{ env.RELEASE_BODY }}
           file: ${{ env.ARCHIVE_NAME }}
 
+  del_runs:
+    name: Prune old workflow runs
+    runs-on: ubuntu-latest
+    needs: download_releases
+    if: ${{ always() }}
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 7
+          keep_minimum_runs: 7
