@@ -11,16 +11,15 @@ permissions:
 jobs:
   download_releases:
     runs-on: ubuntu-latest
+    outputs:
+      should_continue: ${{ steps.check-releases.outputs.should_continue }}
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      UPDATES_FOUND: 0
       EVENT_NAME: ${{ github.event_name }}
-      CHANGES_LOG: ''
-      NEW_LOG: ''
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -35,6 +34,9 @@ jobs:
       - name: Check and download releases
         id: check-releases
         run: |
+          UPDATES_FOUND=0
+          CHANGES_LOG=""
+          NEW_LOG=""
           download_file() {
             local url=$1 output=$2 mandatory=$3
             echo "Downloading file: $output from $url" && curl -L -H "Authorization: token $GITHUB_TOKEN" -o "$output" "$url"
@@ -67,7 +69,12 @@ jobs:
                   esac || echo "Failed to extract $file" 
                 fi 
                 ;; 
-              *) mv "$file" "$target" || echo "Failed to move $file to $target" && return ;; 
+              *) 
+                if mv "$file" "$target"; then
+                  echo "Moved $file → $target"
+                else
+                  echo "Failed to move $file to $target"
+                fi
             esac
 
             # Check if additional_files_json is set and not empty
@@ -96,13 +103,15 @@ jobs:
             # Move files from the temporary directory to the target directory using eval cp
             if [ -n "$archive_pattern" ]; then
               for entry in "$temp_dir"/$archive_pattern; do
-                if [ -e "$entry" ]; then  # Check if the entry exists
+                if [ -e "$entry" ]; then
+                  echo "Moving: $entry → $target/"
                   eval cp -R "$entry" "$target/" || echo "Failed to copy $entry to $target"
                 else
                   echo "No files or directories matching the pattern '$archive_pattern' found in '$temp_dir'."
                 fi
               done
             else
+              echo "Moving: $temp_dir/* → $target/"
               eval cp -R "$temp_dir/"* "$target/" || echo "Failed to move files from $temp_dir to $target"
             fi
 
@@ -203,18 +212,25 @@ jobs:
           done
 
           if [ "$UPDATES_FOUND" -eq 1 ] || [ "$EVENT_NAME" = "workflow_dispatch" ]; then
-            if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "$UPDATES_FOUND" -eq 0 ]; then
-              echo "$RELEASE_VERSIONS" > release_versions.json
-              echo "Using RELEASE_VERSIONS as release_versions.json."
-            fi
+            echo "should_continue=true" >> $GITHUB_OUTPUT
+            echo "$RELEASE_VERSIONS" > release_versions.json
             echo "Downloading files for updated repositories..." && mkdir -p downloads
             for repo in $(echo "$RELEASE_VERSIONS" | jq -r '.repos | keys[]'); do handle_downloads "$repo"; done
+            echo "Final contents of release/:"
+            find release/ -type f | sort
+            echo "NEW_LOG<<EOF" >> $GITHUB_ENV
+            echo -e "$NEW_LOG" >> $GITHUB_ENV
+            echo "EOF" >> $GITHUB_ENV
+            echo "CHANGES_LOG<<EOF" >> $GITHUB_ENV
+            echo -e "$CHANGES_LOG" >> $GITHUB_ENV
+            echo "EOF" >> $GITHUB_ENV
           else
+            echo "should_continue=false" >> $GITHUB_OUTPUT
             echo "No updates found."
+            exit 0
           fi
 
       - name: Copy and modify settings files
-        if: ${{ env.UPDATES_FOUND == '1' || github.event_name == 'workflow_dispatch' }}
         run: |
           CONFIG_SRC="release/atmosphere/config_templates"
           CONFIG_DST="release/atmosphere/config"
@@ -265,7 +281,6 @@ jobs:
           rm -f release/README.md
 
       - name: Load and increment build version
-        if: ${{ env.UPDATES_FOUND == '1' || github.event_name == 'workflow_dispatch' }}
         id: increment-version
         run: |
           # Read the current build number from the file
@@ -279,9 +294,8 @@ jobs:
           echo "$new_version" > build_version.txt
           echo "BUILD_VERSION=$new_version" >> $GITHUB_ENV
           echo "CURRENT_DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
-          
+
       - name: Prepare the release body with proper formatting
-        if: ${{ env.UPDATES_FOUND == '1' || github.event_name == 'workflow_dispatch' }}
         id: prepare-release-body
         run: |
           # Prepare the release body
@@ -302,9 +316,8 @@ jobs:
           echo "RELEASE_BODY<<EOF" >> $GITHUB_ENV
           echo -e "$RELEASE_BODY" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          
+
       - name: Create a compressed archive
-        if: ${{ env.UPDATES_FOUND == '1' || github.event_name == 'workflow_dispatch' }}
         id: create-archive
         run: |
           # Create a directory for the release
@@ -323,9 +336,7 @@ jobs:
           
           # Set the archive name for later use
           echo "ARCHIVE_NAME=$ARCHIVE_NAME" >> $GITHUB_ENV
-
       - name: Commit and push updated files   
-        if: ${{ env.UPDATES_FOUND == '1' || github.event_name == 'workflow_dispatch' }}
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
@@ -333,9 +344,7 @@ jobs:
           git add build_version.txt
           git commit -m "Build ${{ env.BUILD_VERSION }} - ${{ env.CURRENT_DATE }}"
           git push
-          
       - name: Create Release and Upload Archive
-        if: ${{ env.UPDATES_FOUND == '1' || github.event_name == 'workflow_dispatch' }}
         uses: svenstaro/upload-release-action@v2
         with:
           tag: ${{ env.BUILD_VERSION }}
@@ -343,4 +352,19 @@ jobs:
           body: |
             ${{ env.RELEASE_BODY }}
           file: ${{ env.ARCHIVE_NAME }}
+
+  del_runs:
+    name: Prune old workflow runs
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 7
+          keep_minimum_runs: 7
 
