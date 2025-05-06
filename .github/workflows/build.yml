@@ -43,8 +43,9 @@ jobs:
             if [ $? -ne 0 ]; then
               echo "Failed to download $output from $url"
               if [ "$mandatory" = "true" ]; then
+                echo "should_continue=false" >> $GITHUB_OUTPUT
                 echo "Mandatory download failure: $output"
-                exit 1
+                exit 0
               fi
             fi
           }
@@ -176,7 +177,6 @@ jobs:
                                   for target_path in $(echo "$target_paths" | jq -r '.[]'); do
                                       mkdir -p "$target_path"
                                       if [[ ! "$file" == *.zip ]] && [[ ! "$file" == *.tar.gz ]] && [[ ! "$file" == *.7z ]]; then
-                                          local source_file="downloads/$file"
                                           cp -r "downloads/$file" "$target_path/"
                                       fi
                                   done
@@ -196,7 +196,6 @@ jobs:
                               for target_path in $(echo "$target_paths" | jq -r '.[]'); do
                                   mkdir -p "$target_path"
                                   if [[ ! "$download_file" == *.zip ]] && [[ ! "$download_file" == *.tar.gz ]] && [[ ! "$download_file" == *.7z ]]; then
-                                      local source_file="downloads/$file"
                                       cp -r "downloads/$download_file" "$target_path/"
                                   fi
                               done
@@ -211,7 +210,9 @@ jobs:
             check_for_updates "$repo"
           done
 
-          if [ "$UPDATES_FOUND" -eq 1 ] || [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+          UPDATES_FOUND=${UPDATES_FOUND:-0}
+          echo "DEBUG: UPDATES_FOUND is $UPDATES_FOUND"
+          if [ "$UPDATES_FOUND" = "1" ] || [ "$EVENT_NAME" = "workflow_dispatch" ]; then
             echo "should_continue=true" >> $GITHUB_OUTPUT
             echo "$RELEASE_VERSIONS" > release_versions.json
             echo "Downloading files for updated repositories..." && mkdir -p downloads
@@ -231,6 +232,8 @@ jobs:
           fi
 
       - name: Copy and modify settings files
+        id: modify-settings
+        if: ${{ needs.download_releases.outputs.should_continue == 'true' }}
         run: |
           CONFIG_SRC="release/atmosphere/config_templates"
           CONFIG_DST="release/atmosphere/config"
@@ -282,6 +285,7 @@ jobs:
 
       - name: Load and increment build version
         id: increment-version
+        if: ${{ needs.download_releases.outputs.should_continue == 'true' }}
         run: |
           # Read the current build number from the file
           if [ -f build_version.txt ]; then
@@ -297,6 +301,7 @@ jobs:
 
       - name: Prepare the release body with proper formatting
         id: prepare-release-body
+        if: ${{ needs.download_releases.outputs.should_continue == 'true' }}
         run: |
           # Prepare the release body
           RELEASE_BODY=""
@@ -319,6 +324,7 @@ jobs:
 
       - name: Create a compressed archive
         id: create-archive
+        if: ${{ needs.download_releases.outputs.should_continue == 'true' }}
         run: |
           # Create a directory for the release
           mkdir -p release
@@ -336,7 +342,10 @@ jobs:
           
           # Set the archive name for later use
           echo "ARCHIVE_NAME=$ARCHIVE_NAME" >> $GITHUB_ENV
-      - name: Commit and push updated files   
+
+      - name: Commit and push updated files
+        id: commit-push
+        if: ${{ needs.download_releases.outputs.should_continue == 'true' }}
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
@@ -344,7 +353,10 @@ jobs:
           git add build_version.txt
           git commit -m "Build ${{ env.BUILD_VERSION }} - ${{ env.CURRENT_DATE }}"
           git push
+
       - name: Create Release and Upload Archive
+        id: create-release-archive
+        if: ${{ needs.download_releases.outputs.should_continue == 'true' }}
         uses: svenstaro/upload-release-action@v2
         with:
           tag: ${{ env.BUILD_VERSION }}
@@ -361,9 +373,10 @@ jobs:
       contents: read
     steps:
       - name: Delete workflow runs
+        id: del-runs
         uses: Mattraks/delete-workflow-runs@v2
         with:
-          token: ${{ github.token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
           retain_days: 7
           keep_minimum_runs: 7
