@@ -1,10 +1,10 @@
 {
   "repos": {
     "Atmosphere-NX/Atmosphere": {
-      "version": "1.8.0-prerelease"
+      "version": "1.9.1"
     },
     "tomvita/Breeze-Beta": {
-      "version": "beta99d"
+      "version": "beta99f"
     },
     "BernardoGiordano/Checkpoint": {
       "version": "v3.10.0"
@@ -31,7 +31,7 @@
       "version": "v2.0.1"
     },
     "XorTroll/Goldleaf": {
-      "version": "1.0.0"
+      "version": "1.1.1"
     },
     "Chrscool8/Homebrew-Details": {
       "version": "v1.05"
@@ -43,7 +43,7 @@
       "version": "v1.1.15"
     },
     "exelix11/SwitchThemeInjector": {
-      "version": "v4.7.1"
+      "version": "v4.8"
     },
     "suchmememanyskill/themezer-nx": {
       "version": "2.0.0"
@@ -52,7 +52,7 @@
       "version": "2.0.1"
     },
     "masagrator/Status-Monitor-Overlay": {
-      "version": "1.1.8"
+      "version": "1.1.9"
     },
     "fortheusers/hb-appstore": {
       "version": "v2.3.2"
@@ -61,10 +61,10 @@
       "version": "v1.0.7"
     },
     "CTCaer/hekate": {
-      "version": "v6.2.2"
+      "version": "v6.3.1"
     },
     "ndeadly/MissionControl": {
-      "version": "v0.12.0"
+      "version": "v0.13.2"
     },
     "zdm65477730/NX-Activity-Log": {
       "version": "v1.5.7"
@@ -76,7 +76,7 @@
       "version": "v0.6.5"
     },
     "spacemeowx2/ldn_mitm": {
-      "version": "v1.17.0"
+      "version": "v1.18.0"
     },
     "J-D-K/JKSV": {
       "version": "11/05/2024"
@@ -91,10 +91,10 @@
       "version": "v0.4.4"
     },
     "proferabg/EdiZon-Overlay": {
-      "version": "v1.0.9"
+      "version": "v1.0.10"
     },
     "ppkantorski/Ultrahand-Overlay": {
-      "version": "v1.8.3"
+      "version": "v1.9.4"
     },
     "ITotalJustice/untitled": {
       "version": "v1.3.0"
@@ -109,10 +109,10 @@
       "version": "v2.8.1"
     },
     "nedex/QuickNTP": {
-      "version": "1.2.8-1"
+      "version": "1.5.1"
     },
     "ITotalJustice/sphaira": {
-      "version": "0"
+      "version": "0.13.3"
     },
     "MentalBlank/switch-sys-tweak": {
       "version": "1"
