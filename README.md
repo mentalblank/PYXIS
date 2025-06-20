@@ -61,6 +61,7 @@ This project utilizes and credits the following repositories:
 | [fortheusers/hb-appstore](https://github.com/fortheusers/hb-appstore) | Homebrew app store |
 | [HamletDuFromage/aio-switch-updater](https://github.com/HamletDuFromage/aio-switch-updater) | Updater for various things |
 | [ITotalJustice/Gamecard-Installer-NX](https://github.com/ITotalJustice/Gamecard-Installer-NX) | Gamecard installer |
+| [ITotalJustice/sphaira](https://github.com/ITotalJustice/Gamecard-Installer-NX) | hbmenu alternative |
 | [ITotalJustice/untitled](https://github.com/ITotalJustice/untitled) | Batch title uninstaller |
 | [J-D-K/JKSV](https://github.com/J-D-K/JKSV) | Save manager for Switch |
 | [joel16/NX-Shell](https://github.com/joel16/NX-Shell) | File manager |

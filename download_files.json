@@ -307,6 +307,14 @@
         }
       ]
     },
+    "ITotalJustice/sphaira": {
+      "files": [
+        {
+          "file": "sphaira.zip",
+          "target_paths": ["release"]
+        }
+      ]
+    },
     "XorTroll/emuiibo": {
       "files": [
         {
