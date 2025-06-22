@@ -56,11 +56,11 @@ This project utilizes and credits the following repositories:
 | [Chrscool8/Homebrew-Details](https://github.com/Chrscool8/Homebrew-Details) | Homebrew app manager |
 | [CTCaer/hekate](https://github.com/CTCaer/hekate) | Custom bootloader |
 | [DarkMatterCore/nxdumptool](https://github.com/DarkMatterCore/nxdumptool) | Game dumping tool |
+| [DefenderOfHyrule/Gamecard-Installer-NX](https://github.com/ITotalJustice/Gamecard-Installer-NX) | Gamecard installer |
 | [dslatt/nso-icon-tool](https://github.com/dslatt/nso-icon-tool) | Tool for creating user icons |
 | [exelix11/SwitchThemeInjector](https://github.com/exelix11/SwitchThemeInjector) | Theme injector |
 | [fortheusers/hb-appstore](https://github.com/fortheusers/hb-appstore) | Homebrew app store |
 | [HamletDuFromage/aio-switch-updater](https://github.com/HamletDuFromage/aio-switch-updater) | Updater for various things |
-| [ITotalJustice/Gamecard-Installer-NX](https://github.com/ITotalJustice/Gamecard-Installer-NX) | Gamecard installer |
 | [ITotalJustice/sphaira](https://github.com/ITotalJustice/Gamecard-Installer-NX) | hbmenu alternative |
 | [ITotalJustice/untitled](https://github.com/ITotalJustice/untitled) | Batch title uninstaller |
 | [J-D-K/JKSV](https://github.com/J-D-K/JKSV) | Save manager for Switch |
