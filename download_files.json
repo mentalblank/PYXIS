@@ -13,22 +13,6 @@
         }
       ]
     },
-    "tomvita/Breeze-Beta": {
-      "files": [
-        {
-          "file": "Breeze.zip",
-          "target_paths": ["release"]
-        }
-      ]
-    },
-    "ITotalJustice/untitled": {
-      "files": [
-        {
-          "file": "untitled.zip",
-          "target_paths": ["release"]
-        }
-      ]
-    },
     "averne/Fizeau": {
       "files": [
         {
@@ -45,107 +29,19 @@
         }
       ]
     },
-    "proferabg/EdiZon-Overlay": {
+    "cathery/sys-con": {
       "files": [
         {
-          "file": "ovlEdiZon.ovl",
-          "target_paths": ["release/switch/.overlays"]
-        }
-      ]
-    },
-    "WerWolv/Hekate-Toolbox": {
-      "files": [
-        {
-          "file": "HekateToolbox.nro",
-          "target_paths": ["release/switch/HekateToolbox"]
-        }
-      ]
-    },
-    "ppkantorski/Ultrahand-Overlay": {
-      "files": [
-        {
-          "file": "ovlmenu.ovl",
-          "target_paths": ["release/switch/.overlays"]
-        }
-      ]
-    },
-    "nedex/QuickNTP": {
-      "files": [
-        {
-          "file": "quickntp-*.zip",
+          "file": "sys-con-*.zip",
           "target_paths": ["release"]
         }
       ]
     },
-    "WerWolv/ovl-sysmodules": {
+    "cathery/sys-ftpd": {
       "files": [
         {
-          "file": "ovlSysmodules.ovl",
-          "target_paths": ["release/switch/.overlays"]
-        }
-      ]
-    },
-    "HamletDuFromage/aio-switch-updater": {
-      "files": [
-        {
-          "file": "aio-switch-updater.zip",
+          "file": "sys-ftpd-light-*.zip",
           "target_paths": ["release"]
-        }
-      ]
-    },
-    "tomvita/EdiZon-SE": {
-      "files": [
-        {
-          "file": "EdiZon.zip",
-          "target_paths": ["release"]
-        }
-      ]
-    },
-    "Slluxx/IconGrabber": {
-      "files": [
-        {
-          "file": "IconGrabber.nro",
-          "target_paths": ["release/switch/IconGrabber"]
-        }
-      ]
-    },
-    "PoloNX/SimpleModDownloader": {
-      "files": [
-        {
-          "file": "SimpleModDownloader.nro",
-          "target_paths": ["release/switch/SimpleModDownloader"]
-        }
-      ]
-    },
-    "nadrino/SimpleModManager": {
-      "files": [
-        {
-          "file": "SimpleModManager.nro",
-          "target_paths": ["release/switch/SimpleModManager"]
-        }
-      ]
-    },
-    "Slluxx/AmiiboGenerator": {
-      "files": [
-        {
-          "file": "AmiiboGenerator.nro",
-          "target_paths": ["release/switch/AmiiboGenerator"]
-        }
-      ]
-    },
-    "ITotalJustice/Gamecard-Installer-NX": {
-      "files": [
-        {
-          "file": "gamecard_installer.zip",
-          "target_paths": ["release"]
-        }
-      ]
-    },
-    "XorTroll/Goldleaf": {
-      "files": [
-        {
-          "file": "Goldleaf.nro",
-          "target_paths": ["release/switch/Goldleaf"]
         }
       ]
     },
@@ -154,78 +50,6 @@
         {
           "file": "homebrew_details.nro",
           "target_paths": ["release/switch/HomebrewDetails"]
-        }
-      ]
-    },
-    "joel16/NX-Shell": {
-      "files": [
-        {
-          "file": "NX-Shell.nro",
-          "target_paths": ["release/switch/NXShell"]
-        }
-      ]
-    },
-    "DarkMatterCore/nxdumptool": {
-      "files": [
-        {
-          "file": "nxdumptool.nro",
-          "target_paths": ["release/switch/NXDumpTool"]
-        }
-      ]
-    },
-    "exelix11/SwitchThemeInjector": {
-      "files": [
-        {
-          "file": "NXThemesInstaller.nro",
-          "target_paths": ["release/switch/NXThemesInstaller"]
-        }
-      ]
-    },
-    "suchmememanyskill/themezer-nx": {
-      "files": [
-        {
-          "file": "themezer-nx.nro",
-          "target_paths": ["release/switch/ThemezerNX"]
-        }
-      ]
-    },
-    "retronx-team/sys-clk": {
-      "files": [
-        {
-          "file": "sys-clk-*.zip",
-          "target_paths": ["release"]
-        }
-      ]
-    },
-    "masagrator/Status-Monitor-Overlay": {
-      "files": [
-        {
-          "file": "Status-Monitor-Overlay.zip",
-          "target_paths": ["release"]
-        }
-      ]
-    },
-    "fortheusers/hb-appstore": {
-      "files": [
-        {
-          "file": "appstore.nro",
-          "target_paths": ["release/switch/appstore"]
-        }
-      ]
-    },
-    "dslatt/nso-icon-tool": {
-      "files": [
-        {
-          "file": "nso-icon-tool.nro",
-          "target_paths": ["release/switch/NSOIconTool"]
-        }
-      ]
-    },
-    "WerWolv/nx-ovlloader": {
-      "files": [
-        {
-          "file": "nx-ovlloader.zip",
-          "target_paths": ["release"]
         }
       ]
     },
@@ -243,66 +67,50 @@
         }
       ]
     },
-    "ndeadly/MissionControl": {
+    "DarkMatterCore/nxdumptool": {
       "files": [
         {
-          "file": "MissionControl-*.zip",
-          "target_paths": ["release"]
+          "file": "nxdumptool.nro",
+          "target_paths": ["release/switch/NXDumpTool"]
         }
       ]
     },
-    "zdm65477730/NX-Activity-Log": {
+    "DefenderOfHyrule/Gamecard-Installer-NX": {
       "files": [
         {
-          "file": "NX-Activity-Log.nro",
-          "target_paths": ["release/switch/NX-Activity-Log"]
+          "file": "gamecard_installer.nro",
+          "target_paths": ["release/switch/gamecard_installer"]
         }
       ]
     },
-    "cathery/sys-ftpd": {
+    "dslatt/nso-icon-tool": {
       "files": [
         {
-          "file": "sys-ftpd-light-*.zip",
-          "target_paths": ["release"]
+          "file": "nso-icon-tool.nro",
+          "target_paths": ["release/switch/NSOIconTool"]
         }
       ]
     },
-    "cathery/sys-con": {
+    "exelix11/SwitchThemeInjector": {
       "files": [
         {
-          "file": "sys-con-*.zip",
-          "target_paths": ["release"]
+          "file": "NXThemesInstaller.nro",
+          "target_paths": ["release/switch/NXThemesInstaller"]
         }
       ]
     },
-    "spacemeowx2/ldn_mitm": {
+    "fortheusers/hb-appstore": {
       "files": [
         {
-          "file": "ldn_mitm_v*.zip",
-          "target_paths": ["release"]
+          "file": "appstore.nro",
+          "target_paths": ["release/switch/appstore"]
         }
       ]
     },
-    "J-D-K/JKSV": {
+    "HamletDuFromage/aio-switch-updater": {
       "files": [
         {
-          "file": "JKSV.nro",
-          "target_paths": ["release/switch/JKSV"]
-        }
-      ]
-    },
-    "Team-Neptune/CommonProblemResolver": {
-      "files": [
-        {
-          "file": "CommonProblemResolver.bin",
-          "target_paths": ["release", "release/bootloader/payloads"]
-        }
-      ]
-    },
-    "MentalBlank/switch-sys-tweak": {
-      "files": [
-        {
-          "file": "sys-tweak.zip",
+          "file": "aio-switch-updater.zip",
           "target_paths": ["release"]
         }
       ]
@@ -315,12 +123,204 @@
         }
       ]
     },
+    "ITotalJustice/untitled": {
+      "files": [
+        {
+          "file": "untitled.zip",
+          "target_paths": ["release"]
+        }
+      ]
+    },
+    "J-D-K/JKSV": {
+      "files": [
+        {
+          "file": "JKSV.nro",
+          "target_paths": ["release/switch/JKSV"]
+        }
+      ]
+    },
+    "joel16/NX-Shell": {
+      "files": [
+        {
+          "file": "NX-Shell.nro",
+          "target_paths": ["release/switch/NXShell"]
+        }
+      ]
+    },
+    "masagrator/Status-Monitor-Overlay": {
+      "files": [
+        {
+          "file": "Status-Monitor-Overlay.zip",
+          "target_paths": ["release"]
+        }
+      ]
+    },
+    "MentalBlank/switch-sys-tweak": {
+      "files": [
+        {
+          "file": "sys-tweak.zip",
+          "target_paths": ["release"]
+        }
+      ]
+    },
+    "nadrino/SimpleModManager": {
+      "files": [
+        {
+          "file": "SimpleModManager.nro",
+          "target_paths": ["release/switch/SimpleModManager"]
+        }
+      ]
+    },
+    "ndeadly/MissionControl": {
+      "files": [
+        {
+          "file": "MissionControl-*.zip",
+          "target_paths": ["release"]
+        }
+      ]
+    },
+    "nedex/QuickNTP": {
+      "files": [
+        {
+          "file": "quickntp-*.zip",
+          "target_paths": ["release"]
+        }
+      ]
+    },
+    "ppkantorski/Ultrahand-Overlay": {
+      "files": [
+        {
+          "file": "ovlmenu.ovl",
+          "target_paths": ["release/switch/.overlays"]
+        }
+      ]
+    },
+    "PoloNX/SimpleModDownloader": {
+      "files": [
+        {
+          "file": "SimpleModDownloader.nro",
+          "target_paths": ["release/switch/SimpleModDownloader"]
+        }
+      ]
+    },
+    "proferabg/EdiZon-Overlay": {
+      "files": [
+        {
+          "file": "ovlEdiZon.ovl",
+          "target_paths": ["release/switch/.overlays"]
+        }
+      ]
+    },
+    "retronx-team/sys-clk": {
+      "files": [
+        {
+          "file": "sys-clk-*.zip",
+          "target_paths": ["release"]
+        }
+      ]
+    },
+    "Slluxx/AmiiboGenerator": {
+      "files": [
+        {
+          "file": "AmiiboGenerator.nro",
+          "target_paths": ["release/switch/AmiiboGenerator"]
+        }
+      ]
+    },
+    "Slluxx/IconGrabber": {
+      "files": [
+        {
+          "file": "IconGrabber.nro",
+          "target_paths": ["release/switch/IconGrabber"]
+        }
+      ]
+    },
+    "spacemeowx2/ldn_mitm": {
+      "files": [
+        {
+          "file": "ldn_mitm_v*.zip",
+          "target_paths": ["release"]
+        }
+      ]
+    },
+    "suchmememanyskill/themezer-nx": {
+      "files": [
+        {
+          "file": "themezer-nx.nro",
+          "target_paths": ["release/switch/ThemezerNX"]
+        }
+      ]
+    },
+    "Team-Neptune/CommonProblemResolver": {
+      "files": [
+        {
+          "file": "CommonProblemResolver.bin",
+          "target_paths": ["release", "release/bootloader/payloads"]
+        }
+      ]
+    },
+    "tomvita/Breeze-Beta": {
+      "files": [
+        {
+          "file": "Breeze.zip",
+          "target_paths": ["release"]
+        }
+      ]
+    },
+    "tomvita/EdiZon-SE": {
+      "files": [
+        {
+          "file": "EdiZon.zip",
+          "target_paths": ["release"]
+        }
+      ]
+    },
+    "WerWolv/Hekate-Toolbox": {
+      "files": [
+        {
+          "file": "HekateToolbox.nro",
+          "target_paths": ["release/switch/HekateToolbox"]
+        }
+      ]
+    },
+    "WerWolv/nx-ovlloader": {
+      "files": [
+        {
+          "file": "nx-ovlloader.zip",
+          "target_paths": ["release"]
+        }
+      ]
+    },
+    "WerWolv/ovl-sysmodules": {
+      "files": [
+        {
+          "file": "ovlSysmodules.ovl",
+          "target_paths": ["release/switch/.overlays"]
+        }
+      ]
+    },
     "XorTroll/emuiibo": {
       "files": [
         {
           "file": "emuiibo.zip",
           "archive_file": "SdOut/*",
           "target_paths": ["release"]
+        }
+      ]
+    },
+    "XorTroll/Goldleaf": {
+      "files": [
+        {
+          "file": "Goldleaf.nro",
+          "target_paths": ["release/switch/Goldleaf"]
+        }
+      ]
+    },
+    "zdm65477730/NX-Activity-Log": {
+      "files": [
+        {
+          "file": "NX-Activity-Log.nro",
+          "target_paths": ["release/switch/NX-Activity-Log"]
         }
       ]
     }

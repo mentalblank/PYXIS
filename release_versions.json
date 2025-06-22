@@ -3,11 +3,101 @@
     "Atmosphere-NX/Atmosphere": {
       "version": "1.9.1"
     },
-    "tomvita/Breeze-Beta": {
-      "version": "beta99f"
+    "averne/Fizeau": {
+      "version": "v2.8.1"
     },
     "BernardoGiordano/Checkpoint": {
       "version": "v3.10.0"
+    },
+    "cathery/sys-con": {
+      "version": "v0.6.5"
+    },
+    "cathery/sys-ftpd": {
+      "version": "1.0.5"
+    },
+    "Chrscool8/Homebrew-Details": {
+      "version": "v1.05"
+    },
+    "CTCaer/hekate": {
+      "version": "v6.3.1"
+    },
+    "DarkMatterCore/nxdumptool": {
+      "version": "v1.1.15"
+    },
+    "DefenderOfHyrule/Gamecard-Installer-NX": {
+      "version": "0"
+    },
+    "dslatt/nso-icon-tool": {
+      "version": "v0.4.4"
+    },
+    "exelix11/SwitchThemeInjector": {
+      "version": "v4.8.1"
+    },
+    "fortheusers/hb-appstore": {
+      "version": "v2.3.2"
+    },
+    "HamletDuFromage/aio-switch-updater": {
+      "version": "2.23.2"
+    },
+    "ITotalJustice/sphaira": {
+      "version": "0.13.3"
+    },
+    "ITotalJustice/untitled": {
+      "version": "v1.3.0"
+    },
+    "J-D-K/JKSV": {
+      "version": "11/05/2024"
+    },
+    "joel16/NX-Shell": {
+      "version": "4.01"
+    },
+    "masagrator/Status-Monitor-Overlay": {
+      "version": "1.1.9"
+    },
+    "MentalBlank/switch-sys-tweak": {
+      "version": "1"
+    },
+    "nadrino/SimpleModManager": {
+      "version": "2.1.2"
+    },
+    "ndeadly/MissionControl": {
+      "version": "v0.13.2"
+    },
+    "nedex/QuickNTP": {
+      "version": "1.5.1"
+    },
+    "PoloNX/SimpleModDownloader": {
+      "version": "2.1.0"
+    },
+    "ppkantorski/Ultrahand-Overlay": {
+      "version": "v1.9.5"
+    },
+    "proferabg/EdiZon-Overlay": {
+      "version": "v1.0.10"
+    },
+    "retronx-team/sys-clk": {
+      "version": "2.0.1"
+    },
+    "Slluxx/AmiiboGenerator": {
+      "version": "v2.1.1"
+    },
+    "Slluxx/IconGrabber": {
+      "version": "v1.0.1"
+    },
+    "spacemeowx2/ldn_mitm": {
+      "version": "v1.18.0"
+    },
+    "suchmememanyskill/themezer-nx": {
+      "version": "2.0.0"
+    },
+    "Team-Neptune/CommonProblemResolver": {
+      "version": "v0.3.5"
+    },
+    "tomvita/Breeze-Beta": {
+      "version": "beta99f"
+    },
+    "tomvita/EdiZon-SE": {
+      "version": "3.8.36"
     },
     "WerWolv/Hekate-Toolbox": {
       "version": "v4.0.3"
@@ -15,107 +105,17 @@
     "WerWolv/ovl-sysmodules": {
       "version": "v1.3.1"
     },
-    "HamletDuFromage/aio-switch-updater": {
-      "version": "2.23.2"
-    },
-    "tomvita/EdiZon-SE": {
-      "version": "3.8.36"
-    },
-    "Slluxx/IconGrabber": {
-      "version": "v1.0.1"
-    },
-    "nadrino/SimpleModManager": {
-      "version": "2.1.2"
-    },
-    "ITotalJustice/Gamecard-Installer-NX": {
-      "version": "v2.0.1"
-    },
-    "XorTroll/Goldleaf": {
-      "version": "1.1.1"
-    },
-    "Chrscool8/Homebrew-Details": {
-      "version": "v1.05"
-    },
-    "joel16/NX-Shell": {
-      "version": "4.01"
-    },
-    "DarkMatterCore/nxdumptool": {
-      "version": "v1.1.15"
-    },
-    "exelix11/SwitchThemeInjector": {
-      "version": "v4.8.1"
-    },
-    "suchmememanyskill/themezer-nx": {
-      "version": "2.0.0"
-    },
-    "retronx-team/sys-clk": {
-      "version": "2.0.1"
-    },
-    "masagrator/Status-Monitor-Overlay": {
-      "version": "1.1.9"
-    },
-    "fortheusers/hb-appstore": {
-      "version": "v2.3.2"
-    },
     "WerWolv/nx-ovlloader": {
       "version": "v1.0.7"
-    },
-    "CTCaer/hekate": {
-      "version": "v6.3.1"
-    },
-    "ndeadly/MissionControl": {
-      "version": "v0.13.2"
-    },
-    "zdm65477730/NX-Activity-Log": {
-      "version": "v1.5.7"
-    },
-    "cathery/sys-ftpd": {
-      "version": "1.0.5"
-    },
-    "cathery/sys-con": {
-      "version": "v0.6.5"
-    },
-    "spacemeowx2/ldn_mitm": {
-      "version": "v1.18.0"
-    },
-    "J-D-K/JKSV": {
-      "version": "11/05/2024"
-    },
-    "Team-Neptune/CommonProblemResolver": {
-      "version": "v0.3.5"
     },
     "XorTroll/emuiibo": {
       "version": "1.1.1"
     },
-    "dslatt/nso-icon-tool": {
-      "version": "v0.4.4"
+    "XorTroll/Goldleaf": {
+      "version": "1.1.1"
     },
-    "proferabg/EdiZon-Overlay": {
-      "version": "v1.0.10"
-    },
-    "ppkantorski/Ultrahand-Overlay": {
-      "version": "v1.9.5"
-    },
-    "ITotalJustice/untitled": {
-      "version": "v1.3.0"
-    },
-    "PoloNX/SimpleModDownloader": {
-      "version": "2.1.0"
-    },
-    "Slluxx/AmiiboGenerator": {
-      "version": "v2.1.1"
-    },
-    "averne/Fizeau": {
-      "version": "v2.8.1"
-    },
-    "nedex/QuickNTP": {
-      "version": "1.5.1"
-    },
-    "ITotalJustice/sphaira": {
-      "version": "0.13.3"
-    },
-    "MentalBlank/switch-sys-tweak": {
-      "version": "1"
+    "zdm65477730/NX-Activity-Log": {
+      "version": "v1.5.7"
     }
   }
 }
