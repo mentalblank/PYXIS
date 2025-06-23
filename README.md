@@ -56,7 +56,7 @@ This project utilizes and credits the following repositories:
 | [Chrscool8/Homebrew-Details](https://github.com/Chrscool8/Homebrew-Details) | Homebrew app manager |
 | [CTCaer/hekate](https://github.com/CTCaer/hekate) | Custom bootloader |
 | [DarkMatterCore/nxdumptool](https://github.com/DarkMatterCore/nxdumptool) | Game dumping tool |
-| [DefenderOfHyrule/Gamecard-Installer-NX](https://github.com/ITotalJustice/Gamecard-Installer-NX) | Gamecard installer |
+| [DefenderOfHyrule/Gamecard-Installer-NX](https://github.com/DefenderOfHyrule/Gamecard-Installer-NX) | Gamecard installer |
 | [dslatt/nso-icon-tool](https://github.com/dslatt/nso-icon-tool) | Tool for creating user icons |
 | [exelix11/SwitchThemeInjector](https://github.com/exelix11/SwitchThemeInjector) | Theme injector |
 | [fortheusers/hb-appstore](https://github.com/fortheusers/hb-appstore) | Homebrew app store |
@@ -66,6 +66,7 @@ This project utilizes and credits the following repositories:
 | [J-D-K/JKSV](https://github.com/J-D-K/JKSV) | Save manager for Switch |
 | [joel16/NX-Shell](https://github.com/joel16/NX-Shell) | File manager |
 | [masagrator/Status-Monitor-Overlay](https://github.com/masagrator/Status-Monitor-Overlay) | Status monitor overlay |
+| [mentalblank/switch-sys-tweak](https://github.com/masagrator/mentalblank/switch-sys-tweak) | Automatic sys-tweak build |
 | [nadrino/SimpleModManager](https://github.com/nadrino/SimpleModManager) | Simple game mod manager |
 | [ndeadly/MissionControl](https://github.com/ndeadly/MissionControl) | Alternative Controller support |
 | [nedex/QuickNTP](https://github.com/nedex/QuickNTP) | Update clock from NTP server |
