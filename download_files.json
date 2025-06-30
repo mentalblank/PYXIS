@@ -131,6 +131,14 @@
         }
       ]
     },
+    "impeeza/sys-patch": {
+      "files": [
+        {
+          "file": "sys-patch.zip",
+          "target_paths": ["release"]
+        }
+      ]
+    },
     "J-D-K/JKSV": {
       "files": [
         {
@@ -144,6 +152,14 @@
         {
           "file": "NX-Shell.nro",
           "target_paths": ["release/switch/NXShell"]
+        }
+      ]
+    },
+    "Kofysh/Lockpick_RCM": {
+      "files": [
+        {
+          "file": "Lockpick_RCM.bin",
+          "target_paths": ["release", "release/bootloader/payloads"]
         }
       ]
     },

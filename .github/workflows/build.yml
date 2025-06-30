@@ -3,7 +3,7 @@ name: Download and Combine Releases
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 16 * * *'
+    - cron: '0 16 * * 0'
 
 permissions:
   contents: write
@@ -239,8 +239,9 @@ jobs:
           CONFIG_DST="release/atmosphere/config"
           HOSTS_DST="release/atmosphere/hosts"
           BOOTLOADER_DST="release/bootloader"
+          BOOTLOGOS_DST="release/bootloader/bootlogos"
           AIO_UPDATER_DST="release/config/aio-switch-updater"
-          mkdir -p $CONFIG_DST $HOSTS_DST $BOOTLOADER_DST $AIO_UPDATER_DST
+          mkdir -p $CONFIG_DST $HOSTS_DST $BOOTLOADER_DST $BOOTLOGOS_DST $AIO_UPDATER_DST
           
           cp $CONFIG_SRC/override_config.ini release/atmosphere/config/
           cp $CONFIG_SRC/system_settings.ini release/atmosphere/config/
@@ -267,12 +268,12 @@ jobs:
           HOSTS_CONTENT="# Nintendo telemetry servers\n127.0.0.1 receive-%.dg.srv.nintendo.net\n127.0.0.1 receive-%.er.srv.nintendo.net\n\n# Block Nintendo Servers\n127.0.0.1 *nintendo.com\n127.0.0.1 *nintendo.net\n127.0.0.1 *nintendo.jp\n127.0.0.1 *nintendo.co.jp\n127.0.0.1 *nintendo.co.uk\n127.0.0.1 *nintendo-europe.com\n127.0.0.1 *nintendowifi.net\n127.0.0.1 *nintendo.es\n127.0.0.1 *nintendo.co.kr\n127.0.0.1 *nintendo.tw\n127.0.0.1 *nintendo.com.hk\n127.0.0.1 *nintendo.com.au\n127.0.0.1 *nintendo.co.nz\n127.0.0.1 *nintendo.at\n127.0.0.1 *nintendo.be\n127.0.0.1 *nintendods.cz\n127.0.0.1 *nintendo.dk\n127.0.0.1 *nintendo.de\n127.0.0.1 *nintendo.fi\n127.0.0.1 *nintendo.fr\n127.0.0.1 *nintendo.gr\n127.0.0.1 *nintendo.hu\n127.0.0.1 *nintendo.it\n127.0.0.1 *nintendo.nl\n127.0.0.1 *nintendo.no\n127.0.0.1 *nintendo.pt\n127.0.0.1 *nintendo.ru\n127.0.0.1 *nintendo.co.za\n127.0.0.1 *nintendo.se\n127.0.0.1 *nintendo.ch\n127.0.0.1 *nintendo.pl\n127.0.0.1 *nintendoswitch.com\n127.0.0.1 *nintendoswitch.com.cn\n127.0.0.1 *nintendoswitch.cn\n95.216.149.205 *conntest.nintendowifi.net\n95.216.149.205 *ctest.cdn.nintendo.net"
           echo -e "$HOSTS_CONTENT" | tee "$HOSTS_DST/default.txt" "$HOSTS_DST/emummc.txt" > /dev/null
           
-          # Copy icons & bootlogo
-          cp -r image/bootlogo/bootlogo.bmp $BOOTLOADER_DST/
+          # Copy icons & bootlogos
+          cp -r image/bootlogos/* $BOOTLOGOS_DST/
           cp -r image/icon/* $BOOTLOADER_DST/res/
           
           # Create Bootloader Config
-          echo -e "[config]\nautoboot=0\nautoboot_list=0\nbootwait=3\nbacklight=100\nnoticker=1\nautohosoff=1\nautonogc=1\nupdater2p=1\nbootprotect=1\n\n[Fusee]\nicon=bootloader/res/icon_atmosphere.bmp\npayload=bootloader/payloads/fusee.bin\n\n[CFW (emuMMC)]\npkg3=atmosphere/package3\nkip1patch=nosigchk\nemummcforce=1\natmosphere=1\nicon=bootloader/res/icon_hekate.bmp\nusb3force=1\nid=cfw-emu\n\n[CFW (sysMMC)]\npkg3=atmosphere/package3\nkip1patch=nosigchk\natmosphere=1\nemummc_force_disable=1\nicon=bootloader/res/icon_sysnand.bmp\nusb3force=1\nid=cfw-sys\n\n[Stock (sysMMC)]\npkg3=atmosphere/package3\nemummc_force_disable=1\nstock=1\nkip1patch=nogc\nicon=bootloader/res/icon_stock.bmp\nusb3force=1\nusb3force=1\nid=ofw-sys" > $BOOTLOADER_DST/hekate_ipl.ini
+          echo -e "[config]\nautoboot=0\nautoboot_list=0\nbootwait=3\nbacklight=100\nnoticker=1\nautohosoff=1\nautonogc=1\nupdater2p=1\nbootprotect=1\n\n[Fusee]\nicon=bootloader/res/icon_atmosphere.bmp\npayload=bootloader/payloads/fusee.bin\ncustomlogo=1\nlogopath=bootloader/bootlogos/bootlogo_pyxis_fusee.bmp\n\n[Lockpick]\nicon=bootloader/res/icon_lockpick.bmp\npayload=bootloader/payloads/Lockpick_RCM.bin\ncustomlogo=1\nlogopath=bootloader/bootlogos/bootlogo_pyxis_lockpick.bmp\n\n[CFW (emuMMC)]\npkg3=atmosphere/package3\nkip1patch=nosigchk\nemummcforce=1\natmosphere=1\nicon=bootloader/res/icon_hekate.bmp\nusb3force=1\ncustomlogo=1\nlogopath=bootloader/bootlogos/bootlogo_pyxis_emu.bmp\nid=cfw-emu\n\n[CFW (sysMMC)]\npkg3=atmosphere/package3\nkip1patch=nosigchk\natmosphere=1\nemummc_force_disable=1\nicon=bootloader/res/icon_sysnand.bmp\nusb3force=1\ncustomlogo=1\nlogopath=bootloader/bootlogos/bootlogo_pyxis_sys.bmp\nid=cfw-sys\n\n[Stock (sysMMC)]\npkg3=atmosphere/package3\nemummc_force_disable=1\nstock=1\nkip1patch=nogc\nicon=bootloader/res/icon_stock.bmp\nusb3force=1\ncustomlogo=1\nlogopath=bootloader/bootlogos/bootlogo_pyxis_stock.bmp\nid=ofw-sys" > $BOOTLOADER_DST/hekate_ipl.ini
           echo -e "[config]\nthemebg=2d2d2d\nthemecolor=167\nentries5col=0\ntimeoff=2d3f1b00\nhomescreen=0\nverification=1\numsemmcrw=0\njcdisable=0\njcforceright=0\nbpmpclock=1" > $BOOTLOADER_DST/nyx.ini
           
           # Create aio-switch-updater configuration files

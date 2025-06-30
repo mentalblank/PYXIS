@@ -1,10 +1,10 @@
 <div align="center">
 
-  ![Banner](https://i.imgur.com/uvJaSlN.png)
+  ![PYXIS](https://raw.githubusercontent.com/mentalblank/PYXIS/refs/heads/main/image/banner.png)
 
-  # PYXIS All-in-One (AIO) Package for Nintendo Switch
+  # All-in-One (AIO) Package for Nintendo Switch
 
-  An all-in-one custom firmware package for the Nintendo Switch, bringing together various essential tools and applications for a complete custom firmware experience. Sigpatch and prod.key files are **NOT** included.
+  PYXIS is an all-in-one (AIO) custom firmware (CFW) package for the Nintendo Switch, bringing together various essential tools and applications for a complete custom firmware experience. Sigpatch and prod.key files are **NOT** included.
 
 </div>
 
@@ -41,6 +41,8 @@
 
 - A modded Nintendo Switch is required. For more information, consult this [FAQ & CFW Guide](https://switch.hacks.guide/).
 - You can download Amiibo .bin and .nfc files through AmiiboGenerator, or from the [Amiibo Database](https://github.com/AmiiboDB/Amiibo) repository, and load them using the Emuiibo homebrew application.
+- Please do **NOT** upgrade to **firmware 20.0.0** or later unless necessary; not all homebrew is compatible with these firmware versions, an example of this is sys-tweak.
+- The PYXIS repository will automatically check for homebrew updates weekly, and releases a new AIO package **ONLY** if an update is found or I have manually run the build workflow.
 
 ## Credits
 
@@ -56,16 +58,19 @@ This project utilizes and credits the following repositories:
 | [Chrscool8/Homebrew-Details](https://github.com/Chrscool8/Homebrew-Details) | Homebrew app manager |
 | [CTCaer/hekate](https://github.com/CTCaer/hekate) | Custom bootloader |
 | [DarkMatterCore/nxdumptool](https://github.com/DarkMatterCore/nxdumptool) | Game dumping tool |
-| [DefenderOfHyrule/Gamecard-Installer-NX](https://github.com/ITotalJustice/Gamecard-Installer-NX) | Gamecard installer |
+| [DefenderOfHyrule/Gamecard-Installer-NX](https://github.com/DefenderOfHyrule/Gamecard-Installer-NX) | Gamecard installer |
 | [dslatt/nso-icon-tool](https://github.com/dslatt/nso-icon-tool) | Tool for creating user icons |
 | [exelix11/SwitchThemeInjector](https://github.com/exelix11/SwitchThemeInjector) | Theme injector |
 | [fortheusers/hb-appstore](https://github.com/fortheusers/hb-appstore) | Homebrew app store |
 | [HamletDuFromage/aio-switch-updater](https://github.com/HamletDuFromage/aio-switch-updater) | Updater for various things |
-| [ITotalJustice/sphaira](https://github.com/ITotalJustice/Gamecard-Installer-NX) | hbmenu alternative |
+| [ITotalJustice/sphaira](https://github.com/ITotalJustice/sphaira) | hbmenu alternative |
 | [ITotalJustice/untitled](https://github.com/ITotalJustice/untitled) | Batch title uninstaller |
+| [impeeza/sys-patch](https://github.com/impeeza/sys-patch) | patches fs, es, ldr, nifm and nim on boot |
 | [J-D-K/JKSV](https://github.com/J-D-K/JKSV) | Save manager for Switch |
 | [joel16/NX-Shell](https://github.com/joel16/NX-Shell) | File manager |
+| [Kofysh/Lockpick_RCM](https://github.com/Kofysh/Lockpick_RCM) | Payload to extract encryption keys |
 | [masagrator/Status-Monitor-Overlay](https://github.com/masagrator/Status-Monitor-Overlay) | Status monitor overlay |
+| [mentalblank/switch-sys-tweak](https://github.com/mentalblank/switch-sys-tweak) | Automatic builds of [p-sam/switch-sys-tweak](https://github.com/p-sam/switch-sys-tweak) |
 | [nadrino/SimpleModManager](https://github.com/nadrino/SimpleModManager) | Simple game mod manager |
 | [ndeadly/MissionControl](https://github.com/ndeadly/MissionControl) | Alternative Controller support |
 | [nedex/QuickNTP](https://github.com/nedex/QuickNTP) | Update clock from NTP server |

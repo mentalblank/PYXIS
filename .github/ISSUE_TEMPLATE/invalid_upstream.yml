@@ -1,0 +1,51 @@
+name: ⚠️ Tool-Specific Issue – Belongs to Upstream
+description: This repository only packages existing tools. If your issue is with one of them, report it to that tool's maintainer.
+title: "[WRONG REPO] "
+labels: [invalid, upstream, not-our-bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ⚠️ **STOP. READ BEFORE CONTINUING.**
+
+        This repository is a **preconfigured packaging project**.
+        It does **not** develop or maintain the tools included in the AIO package.
+
+        ❌ If your issue is about:
+        - App crashes (Goldleaf, DBI, EdiZon, JKSV, etc.)
+        - Cheats not working
+        - Overclocking issues
+        - Controller problems
+        - Missing features in an included application
+
+        👉 You are in the **wrong place**. Please report it to the upstream project responsible for that tool.
+
+        ✅ You *should* use this issue form if:
+        - A tool is missing from the release package
+        - Files are in the wrong folder or don't load correctly
+        - The ZIP release is broken or incomplete
+        - Something in the AIO setup or instructions is clearly incorrect
+
+        We reserve the right to close irrelevant issues without reply. Thank you for understanding.
+
+  - type: checkboxes
+    attributes:
+      label: Confirm Before Proceeding
+      description: These are required to avoid misfiled bug reports.
+      options:
+        - label: I understand that PYXIS is a **package**, not a development project.
+          required: true
+        - label: This issue is **about the packaging or structure**, not a bug in one of the tools.
+          required: true
+
+  - type: input
+    id: tool_name
+    attributes:
+      label: If this involves a specific tool, name it here
+      placeholder: "e.g., EdiZon-SE, Goldleaf, JKSV (leave blank if not relevant)"
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the issue
+      description: What’s wrong with the package or release ZIP? Provide any relevant paths or filenames.
