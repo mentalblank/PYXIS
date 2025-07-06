@@ -41,7 +41,7 @@
 
 - A modded Nintendo Switch is required. For more information, consult this [FAQ & CFW Guide](https://switch.hacks.guide/).
 - You can download Amiibo .bin and .nfc files through AmiiboGenerator, or from the [Amiibo Database](https://github.com/AmiiboDB/Amiibo) repository, and load them using the Emuiibo homebrew application.
-- Please do **NOT** upgrade to **firmware 20.0.0** or later unless necessary; not all homebrew is compatible with these firmware versions, an example of this is sys-tweak.
+- As a result of changes made by Nintendo to firmware version 20.0.0, there is less memory available for custom system modules. It is recommended that you don't upgrade your device beyond version 18.1.0 unless necessary as versions 19.0.0 and above also have reduced memory available, although not as severe. Additionally, not all homebrew and sys-modules are compatible with these newer OFW versions; an example of this is sys-tweak.
 - The PYXIS repository will automatically check for homebrew updates weekly, and releases a new AIO package **ONLY** if an update is found or I have manually run the build workflow.
 
 ## Credits
