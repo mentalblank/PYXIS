@@ -1,7 +1,7 @@
 {
   "repos": {
     "Atmosphere-NX/Atmosphere": {
-      "version": "1.9.2"
+      "version": "1.9.3"
     },
     "averne/Fizeau": {
       "version": "v2.8.1"
@@ -58,7 +58,7 @@
       "version": "v1.9.15"
     },
     "masagrator/Status-Monitor-Overlay": {
-      "version": "1.1.9"
+      "version": "1.2.0"
     },
     "MentalBlank/switch-sys-tweak": {
       "version": "2025062558"
@@ -67,7 +67,7 @@
       "version": "2.1.2"
     },
     "ndeadly/MissionControl": {
-      "version": "v0.13.3"
+      "version": "v0.13.4"
     },
     "nedex/QuickNTP": {
       "version": "1.5.1"
