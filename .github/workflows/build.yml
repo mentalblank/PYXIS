@@ -16,6 +16,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       EVENT_NAME: ${{ github.event_name }}
+      MIN_UPDATES: 3
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -34,7 +35,7 @@ jobs:
       - name: Check and download releases
         id: check-releases
         run: |
-          UPDATES_FOUND=0
+          UPDATES_COUNT=0
           CHANGES_LOG=""
           NEW_LOG=""
           download_file() {
@@ -139,7 +140,7 @@ jobs:
                 echo "CHANGES_LOG=$CHANGES_LOG" >> $GITHUB_ENV
                 echo "Updates found for $repo: current version $current_version, latest version $latest_release"
               fi
-              UPDATES_FOUND=1
+              UPDATES_COUNT=$((UPDATES_COUNT + 1))
             fi
 
             echo "$RELEASE_VERSIONS" > release_versions.json
@@ -155,7 +156,7 @@ jobs:
                       local mandatory_file=$(echo "$file_entry" | jq -r '.mandatory // false')
                       local archive_file=$(echo "$file_entry" | jq -r '.archive_file // empty')
                       local target_paths=$(echo "$file_entry" | jq -r '.target_paths // empty')
-                      local additional_files=$(echo "$file_entry" | jq -c '.additional_files // empty')  # New addition
+                      local additional_files=$(echo "$file_entry" | jq -c '.additional_files // empty')
                       local assets_url=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$repo/releases/latest" | jq -r '.assets_url')
                       local assets=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$assets_url")
 
@@ -210,9 +211,9 @@ jobs:
             check_for_updates "$repo"
           done
 
-          UPDATES_FOUND=${UPDATES_FOUND:-0}
-          echo "DEBUG: UPDATES_FOUND is $UPDATES_FOUND"
-          if [ "$UPDATES_FOUND" = "1" ] || [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+          UPDATES_COUNT=${UPDATES_COUNT:-0}
+          echo "DEBUG: UPDATES_COUNT is $UPDATES_COUNT"
+          if [ "$UPDATES_COUNT" -ge "$MIN_UPDATES" ] || [ "$EVENT_NAME" = "workflow_dispatch" ]; then
             echo "should_continue=true" >> $GITHUB_OUTPUT
             echo "$RELEASE_VERSIONS" > release_versions.json
             echo "Downloading files for updated repositories..." && mkdir -p downloads
@@ -227,7 +228,11 @@ jobs:
             echo "EOF" >> $GITHUB_ENV
           else
             echo "should_continue=false" >> $GITHUB_OUTPUT
-            echo "No updates found."
+            if [ "$UPDATES_COUNT" -eq 0 ]; then
+              echo "No updates found. Skipping build."
+            else
+              echo "Found $UPDATES_COUNT update(s), but a minimum of $MIN_UPDATES is required. Skipping build."
+            fi
             exit 0
           fi
 
