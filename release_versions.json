@@ -1,7 +1,7 @@
 {
   "repos": {
     "Atmosphere-NX/Atmosphere": {
-      "version": "1.9.3"
+      "version": "1.9.4"
     },
     "averne/Fizeau": {
       "version": "v2.8.1"
@@ -67,7 +67,7 @@
       "version": "2.1.2"
     },
     "ndeadly/MissionControl": {
-      "version": "v0.13.4"
+      "version": "v0.13.5"
     },
     "nedex/QuickNTP": {
       "version": "1.5.1"
@@ -91,7 +91,7 @@
       "version": "v1.0.1"
     },
     "spacemeowx2/ldn_mitm": {
-      "version": "v1.20.0"
+      "version": "v1.21.0"
     },
     "suchmememanyskill/themezer-nx": {
       "version": "2.0.2"
