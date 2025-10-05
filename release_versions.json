@@ -1,7 +1,7 @@
 {
   "repos": {
     "Atmosphere-NX/Atmosphere": {
-      "version": "1.9.4"
+      "version": "1.9.5"
     },
     "averne/Fizeau": {
       "version": "v2.8.1"
@@ -49,7 +49,7 @@
       "version": "v1.5.6"
     },
     "J-D-K/JKSV": {
-      "version": "08/25/2025"
+      "version": "09/13/2025"
     },
     "joel16/NX-Shell": {
       "version": "4.01"
@@ -67,7 +67,7 @@
       "version": "2.1.2"
     },
     "ndeadly/MissionControl": {
-      "version": "v0.13.5"
+      "version": "v0.13.6"
     },
     "nedex/QuickNTP": {
       "version": "1.5.1"
@@ -76,7 +76,7 @@
       "version": "2.2.0"
     },
     "ppkantorski/Ultrahand-Overlay": {
-      "version": "v2.0.1"
+      "version": "v2.1.3"
     },
     "proferabg/EdiZon-Overlay": {
       "version": "v1.0.10"
