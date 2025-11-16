@@ -134,7 +134,7 @@
     "impeeza/sys-patch": {
       "files": [
         {
-          "file": "sys-patch.zip",
+          "file": "sys-patch*.zip",
           "target_paths": ["release"]
         }
       ]
@@ -286,7 +286,7 @@
     "tomvita/EdiZon-SE": {
       "files": [
         {
-          "file": "EdiZon.zip",
+          "file": "edizon.zip",
           "target_paths": ["release"]
         }
       ]
