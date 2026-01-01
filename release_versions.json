@@ -1,13 +1,13 @@
 {
   "repos": {
     "Atmosphere-NX/Atmosphere": {
-      "version": "1.9.5"
+      "version": "1.10.1"
     },
     "averne/Fizeau": {
-      "version": "v2.8.1"
+      "version": "v2.8.2"
     },
     "BernardoGiordano/Checkpoint": {
-      "version": "v3.10.1"
+      "version": "v3.10.2"
     },
     "cathery/sys-con": {
       "version": "v0.6.5"
@@ -19,7 +19,7 @@
       "version": "v1.05"
     },
     "CTCaer/hekate": {
-      "version": "v6.4.0"
+      "version": "v6.4.2"
     },
     "DarkMatterCore/nxdumptool": {
       "version": "v1.1.15"
@@ -28,34 +28,34 @@
       "version": "v2.0.7"
     },
     "dslatt/nso-icon-tool": {
-      "version": "v0.4.4"
+      "version": "v0.4.5"
     },
     "exelix11/SwitchThemeInjector": {
-      "version": "v4.8.2"
+      "version": "v4.8.3"
     },
     "fortheusers/hb-appstore": {
       "version": "v2.3.2"
     },
     "HamletDuFromage/aio-switch-updater": {
-      "version": "2.23.2"
+      "version": "2.23.3"
     },
     "ITotalJustice/sphaira": {
-      "version": "0.13.3"
+      "version": "1.0.0"
     },
     "ITotalJustice/untitled": {
       "version": "v1.3.0"
     },
     "impeeza/sys-patch": {
-      "version": "v1.5.8"
+      "version": "v1.5.9"
     },
     "J-D-K/JKSV": {
-      "version": "09/13/2025"
+      "version": "12/02/2025"
     },
     "joel16/NX-Shell": {
       "version": "4.01"
     },
     "Kofysh/Lockpick_RCM": {
-      "version": "v1.9.15"
+      "version": "v1.9.16"
     },
     "masagrator/Status-Monitor-Overlay": {
       "version": "1.3.2"
@@ -67,19 +67,19 @@
       "version": "2.1.2"
     },
     "ndeadly/MissionControl": {
-      "version": "v0.13.6"
+      "version": "v0.14.1"
     },
     "nedex/QuickNTP": {
-      "version": "1.5.1"
+      "version": "1.6.0"
     },
     "PoloNX/SimpleModDownloader": {
-      "version": "2.2.0"
+      "version": "2.3.0"
     },
     "ppkantorski/Ultrahand-Overlay": {
-      "version": "v2.1.8"
+      "version": "v2.2.6"
     },
     "proferabg/EdiZon-Overlay": {
-      "version": "v1.0.11"
+      "version": "v1.0.14"
     },
     "retronx-team/sys-clk": {
       "version": "2.0.1"
@@ -91,22 +91,22 @@
       "version": "v1.0.1"
     },
     "spacemeowx2/ldn_mitm": {
-      "version": "v1.22.0"
+      "version": "v1.23.0"
     },
     "suchmememanyskill/themezer-nx": {
-      "version": "2.0.2"
+      "version": "2.0.3"
     },
     "Team-Neptune/CommonProblemResolver": {
       "version": "v0.3.5"
     },
     "tomvita/Breeze-Beta": {
-      "version": "beta99p"
+      "version": "beta99r"
     },
     "tomvita/EdiZon-SE": {
-      "version": "3.8.36"
+      "version": "3.8.37a"
     },
     "WerWolv/Hekate-Toolbox": {
-      "version": "v4.0.3"
+      "version": "v4.0.4"
     },
     "WerWolv/ovl-sysmodules": {
       "version": "v1.3.1"
@@ -115,13 +115,13 @@
       "version": "v1.0.7"
     },
     "XorTroll/emuiibo": {
-      "version": "1.1.1"
+      "version": "1.1.2"
     },
     "XorTroll/Goldleaf": {
-      "version": "1.1.1"
+      "version": "1.2.0"
     },
     "zdm65477730/NX-Activity-Log": {
-      "version": "v1.5.7"
+      "version": "v1.5.8"
     }
   }
 }
