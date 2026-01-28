@@ -40,8 +40,8 @@ jobs:
           NEW_LOG=""
           download_file() {
             local url=$1 output=$2 mandatory=$3
-            echo "Downloading file: $output from $url" && curl -L -H "Authorization: token $GITHUB_TOKEN" -o "$output" "$url"
-            if [ $? -ne 0 ]; then
+            echo "Downloading file: $output from $url"
+            if ! curl -sS -L -H "Authorization: token $GITHUB_TOKEN" -o "$output" "$url"; then
               echo "Failed to download $output from $url"
               if [ "$mandatory" = "true" ]; then
                 echo "should_continue=false" >> $GITHUB_OUTPUT
@@ -53,6 +53,7 @@ jobs:
 
           extract_archive() {
             local file=$1 target=$2 archive_pattern=$3 additional_files_json=$4 
+            local temp_dir
             mkdir -p "$target" && temp_dir=$(mktemp -d) 
             
             case "$file" in 
@@ -234,7 +235,10 @@ jobs:
             echo "should_continue=true" >> $GITHUB_OUTPUT
             echo "$RELEASE_VERSIONS" > release_versions.json
             echo "Downloading files for updated repositories..." && mkdir -p downloads
-            for repo in $(echo "$RELEASE_VERSIONS" | jq -r '.repos | keys[]'); do handle_downloads "$repo"; done
+            for repo in $(echo "$RELEASE_VERSIONS" | jq -r '.repos | keys[]'); do
+              handle_downloads "$repo" &
+            done
+            wait
             echo "Final contents of release/:"
             find release/ -type f | sort
             echo "NEW_LOG<<EOF" >> $GITHUB_ENV
