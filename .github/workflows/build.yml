@@ -122,43 +122,38 @@ jobs:
             [ -d "$temp_dir" ] && { rm -rf "$temp_dir" && echo "Deleted temporary directory: $temp_dir"; }
           }
           
-          check_for_updates() {
-            local repo=$1 response=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$repo/releases/latest") || { echo "Error: Failed to fetch latest release information for $repo."; return 1; }
-            local latest_release=$(echo "$response" | jq -r ".tag_name // empty") || { echo "Error: Unable to find the latest release for $repo."; return 1; }
-            
-            echo "Checking for updates for $repo"
-            local current_version=$(echo "$RELEASE_VERSIONS" | jq -r ".repos[\"$repo\"].version // 0")
-            
-            if [[ "$current_version" != "$latest_release" ]]; then
-              RELEASE_VERSIONS=$(echo "$RELEASE_VERSIONS" | jq ".repos[\"$repo\"] = { \"version\": \"$latest_release\" }")
-              if [[ "$current_version" == "0" ]]; then
-                NEW_LOG="${NEW_LOG}- **$repo**: $latest_release\n"
-                echo "NEW_LOG=${NEW_LOG}" >> $GITHUB_ENV
-                echo "New Repo: $repo (version $latest_release)"
-              else
-                CHANGES_LOG="${CHANGES_LOG}- **$repo**: ${current_version} to $latest_release\n"
-                echo "CHANGES_LOG=$CHANGES_LOG" >> $GITHUB_ENV
-                echo "Updates found for $repo: current version $current_version, latest version $latest_release"
-              fi
-              UPDATES_COUNT=$((UPDATES_COUNT + 1))
+          fetch_release_info() {
+            local repo=$1
+            local safe_repo=${repo//\//_}
+            local response
+            response=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$repo/releases/latest")
+            echo "$response" > "release_json_${safe_repo}.json"
+            local tag=$(echo "$response" | jq -r ".tag_name // empty")
+            if [ -n "$tag" ]; then
+              echo "$repo|$tag" > "release_info_${safe_repo}.txt"
+            else
+               echo "Error: Unable to find the latest release for $repo."
             fi
-
-            echo "$RELEASE_VERSIONS" > release_versions.json
           }
 
           handle_downloads() {
               local repo=$1
+              local safe_repo=${repo//\//_}
               local files=$(echo "$DOWNLOAD_FILES" | jq -r ".repos[\"$repo\"].files // empty")
 
               if [ -n "$files" ]; then
+                  local assets=$(cat "release_json_${safe_repo}.json" | jq -c '.assets')
+                  if [ -z "$assets" ] || [ "$assets" == "null" ]; then
+                    echo "Error: No assets found in cached response for $repo"
+                    return
+                  fi
+
                   for file_entry in $(echo "$files" | jq -c '.[]'); do
                       local download_file=$(echo "$file_entry" | jq -r '.file')
                       local mandatory_file=$(echo "$file_entry" | jq -r '.mandatory // false')
                       local archive_file=$(echo "$file_entry" | jq -r '.archive_file // empty')
                       local target_paths=$(echo "$file_entry" | jq -r '.target_paths // empty')
                       local additional_files=$(echo "$file_entry" | jq -c '.additional_files // empty')
-                      local assets_url=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$repo/releases/latest" | jq -r '.assets_url')
-                      local assets=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$assets_url")
 
                       if [[ "$download_file" == *"*"* ]]; then
                           local file_pattern=${download_file//\*/.*}
@@ -206,10 +201,38 @@ jobs:
               fi
           }
 
-          echo "Checking and updating releases..."
+          echo "Checking for updates..."
+          rm -f release_info_*.txt release_json_*.json
           for repo in $(echo "$DOWNLOAD_FILES" | jq -r '.repos | keys[]'); do
-            check_for_updates "$repo"
+            fetch_release_info "$repo" &
           done
+          wait
+
+          cat release_info_*.txt > release_info.txt 2>/dev/null || true
+
+          if [ -s release_info.txt ]; then
+            while IFS='|' read -r repo latest_release; do
+              local current_version=$(echo "$RELEASE_VERSIONS" | jq -r ".repos[\"$repo\"].version // 0")
+
+              if [[ "$current_version" != "$latest_release" ]]; then
+                RELEASE_VERSIONS=$(echo "$RELEASE_VERSIONS" | jq ".repos[\"$repo\"] = { \"version\": \"$latest_release\" }")
+                if [[ "$current_version" == "0" ]]; then
+                  NEW_LOG="${NEW_LOG}- **$repo**: $latest_release\n"
+                  echo "NEW_LOG=${NEW_LOG}" >> $GITHUB_ENV
+                  echo "New Repo: $repo (version $latest_release)"
+                else
+                  CHANGES_LOG="${CHANGES_LOG}- **$repo**: ${current_version} to $latest_release\n"
+                  echo "CHANGES_LOG=$CHANGES_LOG" >> $GITHUB_ENV
+                  echo "Updates found for $repo: current version $current_version, latest version $latest_release"
+                fi
+                UPDATES_COUNT=$((UPDATES_COUNT + 1))
+              fi
+            done < release_info.txt
+
+            echo "$RELEASE_VERSIONS" > release_versions.json
+          fi
+
+          rm -f release_info_*.txt release_info.txt
 
           UPDATES_COUNT=${UPDATES_COUNT:-0}
           echo "DEBUG: UPDATES_COUNT is $UPDATES_COUNT"
@@ -218,6 +241,7 @@ jobs:
             echo "$RELEASE_VERSIONS" > release_versions.json
             echo "Downloading files for updated repositories..." && mkdir -p downloads
             for repo in $(echo "$RELEASE_VERSIONS" | jq -r '.repos | keys[]'); do handle_downloads "$repo"; done
+            rm -f release_json_*.json
             echo "Final contents of release/:"
             find release/ -type f | sort
             echo "NEW_LOG<<EOF" >> $GITHUB_ENV
@@ -386,4 +410,3 @@ jobs:
           repository: ${{ github.repository }}
           retain_days: 7
           keep_minimum_runs: 7
-
