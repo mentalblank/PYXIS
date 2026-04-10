@@ -171,10 +171,10 @@
         }
       ]
     },
-    "MentalBlank/switch-sys-tweak": {
+    "masagrator/sys-ticon": {
       "files": [
         {
-          "file": "sys-tweak.zip",
+          "file": "sys-ticon.zip",
           "target_paths": ["release"]
         }
       ]
