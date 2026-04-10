@@ -1,11 +1,11 @@
 {
   "build_info": {
-    "version": 34,
-    "last_updated": ""
+    "version": 35,
+    "last_updated": "20260410"
   },
   "repos": {
     "Atmosphere-NX/Atmosphere": {
-      "version": "1.11.0",
+      "version": "1.11.1",
       "files": [
         {
           "file": "atmosphere-*.zip",
@@ -165,7 +165,7 @@
       ]
     },
     "HamletDuFromage/nx-locale-switcher": {
-      "version": "0",
+      "version": "1.1.4",
       "files": [
         {
           "file": "nx-locale-switcher.nro",
@@ -254,7 +254,7 @@
       ]
     },
     "masagrator/sys-ticon": {
-      "version": "0",
+      "version": "1.0.7",
       "files": [
         {
           "file": "sys-ticon.zip",
@@ -276,7 +276,7 @@
       ]
     },
     "ndeadly/MissionControl": {
-      "version": "v0.15.0",
+      "version": "v0.15.1",
       "files": [
         {
           "file": "MissionControl-*.zip",
@@ -364,7 +364,7 @@
       ]
     },
     "spacemeowx2/ldn_mitm": {
-      "version": "v1.25.0",
+      "version": "v1.25.1",
       "files": [
         {
           "file": "ldn_mitm_v*.zip",
@@ -375,7 +375,7 @@
       ]
     },
     "sthetix/DowngradeFixer": {
-      "version": "0",
+      "version": "1.0.0",
       "files": [
         {
           "file": "DowngradeFixer-*.zip",

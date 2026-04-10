@@ -19,6 +19,8 @@ jobs:
 
       - name: Run Release Manager
         id: release-manager
+        env:
+          EVENT_NAME: ${{ github.event_name }}
         run: ./scripts/manage_releases.sh
 
       - name: Configure Release Files
