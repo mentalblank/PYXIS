@@ -41,7 +41,8 @@
 
 - A modded Nintendo Switch is required. For more information, consult this [FAQ & CFW Guide](https://switch.hacks.guide/).
 - You can download Amiibo .bin and .nfc files through AmiiboGenerator, or from the [Amiibo Database](https://github.com/AmiiboDB/Amiibo) repository, and load them using the Emuiibo homebrew application.
-- As a result of changes made by Nintendo to firmware version 20.0.0, there is less memory available for custom system modules. It is recommended that you don't upgrade your device beyond version 18.1.0 unless necessary as versions 19.0.0 and above also have reduced memory available, although not as severe. Additionally, not all homebrew and sys-modules are compatible with these newer OFW versions; an example of this is sys-tweak.
+- As a result of changes made by Nintendo to firmware version 20.0.0, there is less memory available for custom system modules. It is recommended that you don't upgrade your device beyond version 18.1.0 unless necessary as versions 19.0.0 and above also have reduced memory available, although not as severe. Additionally, not all homebrew and sys-modules are compatible with these newer OFW versions; an example of this is [switch-sys-tweak](https://github.com/p-sam/switch-sys-tweak).
+- If updating past FW 18.1.0 and using [masagrator/sys-ticon](https://github.com/masagrator/sys-ticon) to replace icons, titles, publishers or display versions, please check the [README.md](https://github.com/masagrator/sys-ticon/blob/develop/README.md) for details on limitations and instructions.
 - The PYXIS repository will automatically check for homebrew updates weekly, and releases a new AIO package **ONLY** if three or more updates are found, or I manually run the build workflow.
 
 ## Credits
@@ -70,7 +71,7 @@ This project utilizes and credits the following repositories:
 | [joel16/NX-Shell](https://github.com/joel16/NX-Shell) | File manager |
 | [Kofysh/Lockpick_RCM](https://github.com/Kofysh/Lockpick_RCM) | Payload to extract encryption keys |
 | [masagrator/Status-Monitor-Overlay](https://github.com/masagrator/Status-Monitor-Overlay) | Status monitor overlay |
-| [mentalblank/switch-sys-tweak](https://github.com/mentalblank/switch-sys-tweak) | Automatic builds of [p-sam/switch-sys-tweak](https://github.com/p-sam/switch-sys-tweak) |
+| [masagrator/sys-ticon](https://github.com/masagrator/sys-ticon) | Stripped and updated [switch-sys-tweak](https://github.com/p-sam/switch-sys-tweak) |
 | [nadrino/SimpleModManager](https://github.com/nadrino/SimpleModManager) | Simple game mod manager |
 | [ndeadly/MissionControl](https://github.com/ndeadly/MissionControl) | Alternative Controller support |
 | [nedex/QuickNTP](https://github.com/nedex/QuickNTP) | Update clock from NTP server |
