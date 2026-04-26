@@ -1,7 +1,7 @@
 {
   "build_info": {
-    "version": 35,
-    "last_updated": "20260410"
+    "version": 36,
+    "last_updated": "20260426"
   },
   "repos": {
     "Atmosphere-NX/Atmosphere": {
@@ -298,7 +298,7 @@
       ]
     },
     "ppkantorski/Ultrahand-Overlay": {
-      "version": "v2.3.0",
+      "version": "v2.4.1",
       "files": [
         {
           "file": "ovlmenu.ovl",
@@ -320,7 +320,7 @@
       ]
     },
     "proferabg/EdiZon-Overlay": {
-      "version": "v1.0.14",
+      "version": "v1.0.15",
       "files": [
         {
           "file": "ovlEdiZon.ovl",
@@ -375,7 +375,7 @@
       ]
     },
     "sthetix/DowngradeFixer": {
-      "version": "1.0.0",
+      "version": "1.0.1",
       "files": [
         {
           "file": "DowngradeFixer-*.zip",
@@ -409,7 +409,7 @@
       ]
     },
     "tomvita/Breeze-Beta": {
-      "version": "beta100.6",
+      "version": "beta104.4",
       "files": [
         {
           "file": "Breeze.zip",
