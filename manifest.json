@@ -1,7 +1,7 @@
 {
   "build_info": {
-    "version": 36,
-    "last_updated": "20260426"
+    "version": 37,
+    "last_updated": "20260517"
   },
   "repos": {
     "Atmosphere-NX/Atmosphere": {
@@ -35,7 +35,7 @@
       ]
     },
     "BernardoGiordano/Checkpoint": {
-      "version": "v3.11.0",
+      "version": "v3.12.0",
       "files": [
         {
           "file": "Checkpoint.nro",
@@ -198,7 +198,7 @@
       ]
     },
     "impeeza/sys-patch": {
-      "version": "v1.6.0",
+      "version": "v1.6.2.0",
       "files": [
         {
           "file": "sys-patch*.zip",
@@ -243,7 +243,7 @@
       ]
     },
     "masagrator/Status-Monitor-Overlay": {
-      "version": "1.3.2",
+      "version": "1.4.0",
       "files": [
         {
           "file": "Status-Monitor-Overlay.zip",
@@ -386,7 +386,7 @@
       ]
     },
     "suchmememanyskill/themezer-nx": {
-      "version": "2.0.3",
+      "version": "3.0.0",
       "files": [
         {
           "file": "themezer-nx.nro",
