@@ -1,11 +1,11 @@
 {
   "build_info": {
-    "version": 38,
-    "last_updated": "20260531"
+    "version": 39,
+    "last_updated": "20260621"
   },
   "repos": {
     "Atmosphere-NX/Atmosphere": {
-      "version": "1.11.1",
+      "version": "1.11.2",
       "files": [
         {
           "file": "atmosphere-*.zip",
@@ -35,7 +35,7 @@
       ]
     },
     "BernardoGiordano/Checkpoint": {
-      "version": "v3.12.0",
+      "version": "v3.13.0",
       "files": [
         {
           "file": "Checkpoint.nro",
@@ -79,7 +79,7 @@
       ]
     },
     "CTCaer/hekate": {
-      "version": "v6.5.2",
+      "version": "v6.5.3",
       "files": [
         {
           "file": "hekate_ctcaer_*.zip",
@@ -198,7 +198,7 @@
       ]
     },
     "impeeza/sys-patch": {
-      "version": "v1.6.2.0",
+      "version": "v1.6.2.3",
       "files": [
         {
           "file": "sys-patch*.zip",
@@ -254,7 +254,7 @@
       ]
     },
     "masagrator/sys-ticon": {
-      "version": "1.0.7",
+      "version": "1.0.8",
       "files": [
         {
           "file": "sys-ticon.zip",
@@ -276,7 +276,7 @@
       ]
     },
     "ndeadly/MissionControl": {
-      "version": "v0.15.1",
+      "version": "v0.15.2",
       "files": [
         {
           "file": "MissionControl-*.zip",
@@ -298,7 +298,7 @@
       ]
     },
     "ppkantorski/Ultrahand-Overlay": {
-      "version": "v2.4.4",
+      "version": "v2.5.1",
       "files": [
         {
           "file": "ovlmenu.ovl",
@@ -409,7 +409,7 @@
       ]
     },
     "tomvita/Breeze-Beta": {
-      "version": "beta104.4",
+      "version": "beta108.4c",
       "files": [
         {
           "file": "Breeze.zip",
