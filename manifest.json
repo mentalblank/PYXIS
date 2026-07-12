@@ -1,7 +1,7 @@
 {
   "build_info": {
-    "version": 39,
-    "last_updated": "20260621"
+    "version": 40,
+    "last_updated": "20260712"
   },
   "repos": {
     "Atmosphere-NX/Atmosphere": {
@@ -35,7 +35,7 @@
       ]
     },
     "BernardoGiordano/Checkpoint": {
-      "version": "v3.13.0",
+      "version": "v4.0.0",
       "files": [
         {
           "file": "Checkpoint.nro",
@@ -231,7 +231,7 @@
       ]
     },
     "Kofysh/Lockpick_RCM": {
-      "version": "v1.9.19",
+      "version": "v1.12.0",
       "files": [
         {
           "file": "Lockpick_RCM.bin",
@@ -298,7 +298,7 @@
       ]
     },
     "ppkantorski/Ultrahand-Overlay": {
-      "version": "v2.5.1",
+      "version": "v2.5.2",
       "files": [
         {
           "file": "ovlmenu.ovl",
@@ -386,7 +386,7 @@
       ]
     },
     "suchmememanyskill/themezer-nx": {
-      "version": "3.0.0",
+      "version": "3.2.1",
       "files": [
         {
           "file": "themezer-nx.nro",
