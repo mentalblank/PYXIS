@@ -1,7 +1,7 @@
 {
   "build_info": {
-    "version": 41,
-    "last_updated": "20260809"
+    "version": 42,
+    "last_updated": "20260830"
   },
   "repos": {
     "Atmosphere-NX/Atmosphere": {
@@ -35,7 +35,7 @@
       ]
     },
     "BernardoGiordano/Checkpoint": {
-      "version": "v5.0.0",
+      "version": "v5.2.0",
       "files": [
         {
           "file": "Checkpoint.nro",
@@ -132,7 +132,7 @@
       ]
     },
     "exelix11/SwitchThemeInjector": {
-      "version": "nxt-2.9",
+      "version": "nxt-3.0.1",
       "files": [
         {
           "file": "NXThemesInstaller.nro",
@@ -487,7 +487,7 @@
       ]
     },
     "zdm65477730/NX-Activity-Log": {
-      "version": "v1.5.8",
+      "version": "v1.5.9",
       "files": [
         {
           "file": "NX-Activity-Log.nro",
