@@ -1,7 +1,7 @@
 {
   "build_info": {
-    "version": 42,
-    "last_updated": "20260830"
+    "version": 43,
+    "last_updated": "20260927"
   },
   "repos": {
     "Atmosphere-NX/Atmosphere": {
@@ -132,7 +132,7 @@
       ]
     },
     "exelix11/SwitchThemeInjector": {
-      "version": "nxt-3.0.1",
+      "version": "nxt-3.0.2",
       "files": [
         {
           "file": "NXThemesInstaller.nro",
@@ -231,7 +231,7 @@
       ]
     },
     "Kofysh/Lockpick_RCM": {
-      "version": "v1.12.0",
+      "version": "v1.9.21",
       "files": [
         {
           "file": "Lockpick_RCM.bin",
@@ -386,7 +386,7 @@
       ]
     },
     "suchmememanyskill/themezer-nx": {
-      "version": "3.2.1",
+      "version": "3.3.0",
       "files": [
         {
           "file": "themezer-nx.nro",
@@ -476,7 +476,7 @@
       ]
     },
     "XorTroll/Goldleaf": {
-      "version": "1.2.0",
+      "version": "1.2.1",
       "files": [
         {
           "file": "Goldleaf.nro",
