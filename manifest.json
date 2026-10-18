@@ -1,11 +1,11 @@
 {
   "build_info": {
-    "version": 44,
-    "last_updated": "20261004"
+    "version": 45,
+    "last_updated": "20261018"
   },
   "repos": {
     "Atmosphere-NX/Atmosphere": {
-      "version": "1.12.0",
+      "version": "1.12.1",
       "files": [
         {
           "file": "atmosphere-*.zip",
@@ -35,7 +35,7 @@
       ]
     },
     "BernardoGiordano/Checkpoint": {
-      "version": "v5.2.0",
+      "version": "v5.3.0",
       "files": [
         {
           "file": "Checkpoint.nro",
@@ -254,7 +254,7 @@
       ]
     },
     "masagrator/sys-ticon": {
-      "version": "1.0.9",
+      "version": "1.0.10",
       "files": [
         {
           "file": "sys-ticon.zip",
